@@ -134,9 +134,25 @@ const {
         }
       });
       
-      // Enhanced smooth scroll with momentum
+      // Enhanced smooth scroll with momentum and easing
       let scrollTimeout = null;
       let isScrolling = false;
+      let velocity = 0;
+      let lastScrollTime = Date.now();
+      let rafId = null;
+      
+      // Momentum decay function for ultra-smooth scrolling
+      function applyMomentum() {
+        if (Math.abs(velocity) > 0.1) {
+          container.scrollLeft += velocity;
+          velocity *= 0.92; // Smooth deceleration
+          rafId = requestAnimationFrame(applyMomentum);
+        } else {
+          velocity = 0;
+          cancelAnimationFrame(rafId);
+          rafId = null;
+        }
+      }
       
       container.addEventListener('wheel', (e) => {
         const currentScroll = container.scrollLeft;
@@ -181,29 +197,51 @@ const {
             setTimeout(() => { isScrolling = false; }, 800);
           }
         } else {
-          // Smooth horizontal scroll with momentum
+          // Ultra-smooth horizontal scroll with momentum
           e.preventDefault();
           
-          // Use smaller deltas for smoother feel
-          const rawDelta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
-          const delta = rawDelta * 0.8;
+          // Calculate time delta for velocity
+          const now = Date.now();
+          const timeDelta = Math.max(1, now - lastScrollTime);
+          lastScrollTime = now;
           
+          // Use smaller deltas for finer control and smoother feel
+          const rawDelta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+          const delta = rawDelta * 0.55; // Reduced from 0.8 for smoother control
+          
+          // Apply immediate scroll
           container.scrollBy({
             left: delta,
             behavior: 'auto'
           });
           
-          // Snap to nearest section after scroll stops
+          // Update velocity for momentum (optional enhancement)
+          velocity = delta / timeDelta * 16; // Normalize to 60fps
+          
+          // Cancel any existing momentum
+          if (rafId) {
+            cancelAnimationFrame(rafId);
+            rafId = null;
+          }
+          
+          // Snap to nearest section after scroll stops (increased delay)
           clearTimeout(scrollTimeout);
           scrollTimeout = setTimeout(() => {
             const finalScroll = container.scrollLeft;
             const finalIndex = Math.round(finalScroll / sectionWidth);
             
-            container.scrollTo({
-              left: finalIndex * sectionWidth,
-              behavior: 'smooth'
-            });
-          }, 150);
+            // Custom easing snap for extra smoothness
+            const targetScroll = finalIndex * sectionWidth;
+            const distance = targetScroll - finalScroll;
+            
+            if (Math.abs(distance) > 1) {
+              // Use smooth scroll for snap
+              container.scrollTo({
+                left: targetScroll,
+                behavior: 'smooth'
+              });
+            }
+          }, 200); // Increased from 150ms for smoother feel
         }
       }, { passive: false });
       
