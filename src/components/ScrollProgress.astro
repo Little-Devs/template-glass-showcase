@@ -4,7 +4,6 @@
 
 <div class="scroll-progress-container">
   <div class="scroll-progress-bar"></div>
-  <span class="scroll-progress-text">Section <span id="current-section">1</span> of 18</span>
 </div>
 
 <style>
@@ -36,25 +35,6 @@
     box-shadow: 0 0 20px rgba(138, 43, 226, 0.6);
     transition: width 0.1s ease-out;
   }
-  
-  .scroll-progress-text {
-    position: absolute;
-    top: 8px;
-    right: 1rem;
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: rgba(255, 255, 255, 0.7);
-    background: rgba(26, 11, 46, 0.7);
-    backdrop-filter: blur(10px);
-    padding: 0.25rem 0.75rem;
-    border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-  }
-  
-  #current-section {
-    color: rgba(168, 85, 247, 1);
-    font-weight: 700;
-  }
 </style>
 
 <script>
@@ -64,7 +44,6 @@
     const container = document.querySelector('.horizontal-scroll-container');
     const progressBar = document.querySelector('.scroll-progress-bar');
     const progressContainer = document.querySelector('.scroll-progress-container');
-    const currentSectionSpan = document.getElementById('current-section');
     
     if (!container || !progressBar) return;
     
@@ -76,15 +55,7 @@
         end: 'right right',
         scrub: 0.3,
         horizontal: true,
-        scroller: '.horizontal-scroll-container',
-        onUpdate: (self) => {
-          // Update section number based on progress
-          const totalSections = 18;
-          const currentSection = Math.min(totalSections, Math.ceil(self.progress * totalSections));
-          if (currentSectionSpan) {
-            currentSectionSpan.textContent = currentSection;
-          }
-        }
+        scroller: '.horizontal-scroll-container'
       },
       width: '100%',
       ease: 'none'
