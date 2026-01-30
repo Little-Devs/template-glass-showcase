@@ -577,6 +577,31 @@ const {
       window.addEventListener('beforeunload', () => {
         ScrollTrigger.getAll().forEach(trigger => trigger.kill());
       });
+      
+      // ========== ANCHOR NAVIGATION ==========
+      // Handle all anchor links with data-scroll-to attribute
+      document.addEventListener('click', (e) => {
+        const link = e.target.closest('a[data-scroll-to]');
+        if (link) {
+          e.preventDefault();
+          const sectionIndex = parseInt(link.getAttribute('data-scroll-to'));
+          const targetScroll = sectionIndex * window.innerWidth;
+          
+          // Close sidebar if open
+          const sidebar = document.getElementById('app-sidebar');
+          if (sidebar && sidebar.classList.contains('show')) {
+            sidebar.classList.remove('show');
+            document.getElementById('sidebar-overlay')?.classList.remove('active');
+          }
+          
+          // Smooth scroll to section
+          gsap.to(container, {
+            scrollLeft: targetScroll,
+            duration: 1.2,
+            ease: 'power3.inOut'
+          });
+        }
+      });
     });
   </script>
 </body>

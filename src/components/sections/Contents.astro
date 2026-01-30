@@ -8,27 +8,27 @@
       <h2 class="section-title">Table of Contents</h2>
       
       <nav class="contents-menu">
-        <a href="#" class="menu-item glass-card">
+        <a href="#introduction" class="menu-item glass-card" data-scroll-to="2">
           <span class="arrow">→</span>
           <span>Introduction & Settings</span>
         </a>
-        <a href="#" class="menu-item glass-card">
+        <a href="#glass-ui" class="menu-item glass-card" data-scroll-to="4">
           <span class="arrow">→</span>
           <span>Glass for UI</span>
         </a>
-        <a href="#" class="menu-item glass-card">
+        <a href="#prototyping" class="menu-item glass-card" data-scroll-to="9">
           <span class="arrow">→</span>
           <span>Glass in Prototyping</span>
         </a>
-        <a href="#" class="menu-item glass-card">
+        <a href="#have-fun" class="menu-item glass-card" data-scroll-to="10">
           <span class="arrow">→</span>
           <span>Glass for Fun</span>
         </a>
-        <a href="#" class="menu-item glass-card">
+        <a href="#considerations" class="menu-item glass-card" data-scroll-to="13">
           <span class="arrow">→</span>
           <span>Considerations</span>
         </a>
-        <a href="#" class="menu-item glass-card">
+        <a href="#glass-resources" class="menu-item glass-card" data-scroll-to="15">
           <span class="arrow">→</span>
           <span>Glass Resources</span>
         </a>
@@ -210,5 +210,23 @@
       ease: 'power2.out',
       delay: 0.8
     });
+  });
+  
+  // Anchor navigation for Contents menu
+  document.addEventListener('click', (e) => {
+    const link = e.target.closest('a[data-scroll-to]');
+    if (link) {
+      e.preventDefault();
+      const sectionIndex = parseInt(link.getAttribute('data-scroll-to'));
+      const container = document.querySelector('.horizontal-scroll-container');
+      if (container) {
+        const targetScroll = sectionIndex * window.innerWidth;
+        gsap.to(container, {
+          scrollLeft: targetScroll,
+          duration: 1.2,
+          ease: 'power3.inOut'
+        });
+      }
+    }
   });
 </script>
