@@ -54,7 +54,8 @@ body {
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background: var(--color-dark);
+  background: linear-gradient(135deg, #1a0b2e 0%, #271255 50%, #1a0b2e 100%);
+  background-attachment: fixed;
   color: var(--color-white);
   width: 100vw;
   height: 100vh;

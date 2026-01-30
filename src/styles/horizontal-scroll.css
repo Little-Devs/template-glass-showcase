@@ -7,8 +7,8 @@
   flex-wrap: nowrap !important;
   overflow-x: scroll !important;
   overflow-y: hidden !important;
-  scroll-snap-type: x proximity !important; /* Changed from mandatory to proximity for smoother feel */
-  scroll-behavior: smooth !important;
+  scroll-snap-type: none !important; /* Disabled - using JavaScript snap instead */
+  scroll-behavior: auto !important; /* Changed from smooth to auto for better control */
   width: 100vw !important;
   height: 100vh !important;
   /* Hide scrollbar */
@@ -35,8 +35,8 @@
   max-height: 100vh !important;
   flex-shrink: 0 !important;
   flex-grow: 0 !important;
-  scroll-snap-align: center !important; /* Changed to center for smoother snapping */
-  scroll-snap-stop: normal !important; /* Changed from always to normal for better flow */
+  scroll-snap-align: none !important; /* Disabled - using JavaScript snap */
+  scroll-snap-stop: normal !important;
   overflow-y: auto !important;
   overflow-x: hidden !important;
   position: relative !important;

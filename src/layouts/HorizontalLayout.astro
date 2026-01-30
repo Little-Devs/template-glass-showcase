@@ -43,6 +43,8 @@ const {
       overflow: hidden;
       width: 100vw;
       height: 100vh;
+      background: linear-gradient(135deg, #1a0b2e 0%, #271255 50%, #1a0b2e 100%);
+      background-attachment: fixed;
     }
     
     .horizontal-scroll-container {
@@ -50,8 +52,8 @@ const {
       flex-direction: row;
       overflow-x: scroll;
       overflow-y: hidden;
-      scroll-snap-type: x proximity;
-      scroll-behavior: smooth;
+      scroll-snap-type: none;
+      scroll-behavior: auto;
       height: 100vh;
       width: 100vw;
       scrollbar-width: thin;
@@ -59,6 +61,7 @@ const {
       top: 0;
       left: 0;
       -webkit-overflow-scrolling: touch;
+      background: transparent;
     }
     
     /* Scrollbar hidden - see horizontal-scroll.css */
@@ -74,10 +77,11 @@ const {
       height: auto !important;
       max-height: 100vh !important;
       flex-shrink: 0 !important;
-      scroll-snap-align: center !important;
+      scroll-snap-align: none !important;
       overflow-y: auto !important;
       overflow-x: hidden !important;
       -webkit-overflow-scrolling: touch !important;
+      background: transparent !important;
     }
     
     /* Hide section scrollbars */
@@ -181,7 +185,8 @@ const {
           e.preventDefault();
           
           // Use smaller deltas for smoother feel
-          const delta = (Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY) * 0.8;
+          const rawDelta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+          const delta = rawDelta * 0.8;
           
           container.scrollBy({
             left: delta,
@@ -193,6 +198,7 @@ const {
           scrollTimeout = setTimeout(() => {
             const finalScroll = container.scrollLeft;
             const finalIndex = Math.round(finalScroll / sectionWidth);
+            
             container.scrollTo({
               left: finalIndex * sectionWidth,
               behavior: 'smooth'
