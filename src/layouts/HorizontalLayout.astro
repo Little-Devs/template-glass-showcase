@@ -118,16 +118,9 @@ const {
       const sections = document.querySelectorAll('.scroll-section');
       const navDots = document.querySelectorAll('.nav-dot');
       
-      // GSAP-powered ultra-smooth scrolling
+      // Hybrid: Direct scroll + GSAP snap for best of both worlds
       let scrollTimeout = null;
       let isScrolling = false;
-      let accumulatedDelta = 0;
-      
-      // Create GSAP quickTo for instant responsive scrolling
-      const quickScroll = gsap.quickTo(container, 'scrollLeft', {
-        duration: 0.5,
-        ease: 'power2.out'
-      });
       
       // Smooth keyboard navigation with GSAP
       document.addEventListener('keydown', (e) => {
@@ -194,36 +187,38 @@ const {
             }
           }
         } else {
-          // Ultra-smooth GSAP-powered horizontal scroll
+          // Hybrid approach: Direct scroll for responsiveness, GSAP for snap
           e.preventDefault();
+          
+          // Kill any active GSAP snap animations for immediate response
+          gsap.killTweensOf(container);
           
           // Use raw delta for responsive feel on all screen sizes
           const rawDelta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
-          const delta = rawDelta * 0.7; // Balanced multiplier for all screens
+          const delta = rawDelta * 0.7; // Balanced multiplier
           
-          // Accumulate delta for smoother continuous scrolling
-          accumulatedDelta += delta;
+          // Direct, immediate scroll - no animation delays
+          container.scrollBy({
+            left: delta,
+            behavior: 'auto' // Instant, no smoothing
+          });
           
-          // Apply GSAP quickTo for buttery smooth scrolling
-          const newScrollPos = currentScroll + delta;
-          quickScroll(newScrollPos);
-          
-          // Snap to nearest section after scroll stops
+          // Snap to nearest section after scroll stops (GSAP for smooth alignment)
           clearTimeout(scrollTimeout);
           scrollTimeout = setTimeout(() => {
             const finalScroll = container.scrollLeft;
             const finalIndex = Math.round(finalScroll / sectionWidth);
             const targetScroll = finalIndex * sectionWidth;
             
-            // GSAP snap with smooth easing
-            gsap.to(container, {
-              scrollLeft: targetScroll,
-              duration: 0.6,
-              ease: 'power2.inOut'
-            });
-            
-            accumulatedDelta = 0;
-          }, 180);
+            // Only snap if not already aligned
+            if (Math.abs(targetScroll - finalScroll) > 1) {
+              gsap.to(container, {
+                scrollLeft: targetScroll,
+                duration: 0.5, // Shorter for quicker response
+                ease: 'power2.out' // Gentle easing
+              });
+            }
+          }, 150); // Reduced from 180ms
         }
       }, { passive: false });
       
