@@ -127,6 +127,21 @@ html {
   -webkit-overflow-scrolling: touch;
 }
 
+/* Mobile safe area insets for iOS */
+@media (max-width: 768px) {
+  body {
+    padding: env(safe-area-inset-top) env(safe-area-inset-right) 
+             env(safe-area-inset-bottom) env(safe-area-inset-left);
+  }
+  
+  .scroll-section {
+    padding: max(1rem, env(safe-area-inset-top)) 
+             max(1rem, env(safe-area-inset-right))
+             max(1rem, env(safe-area-inset-bottom)) 
+             max(1rem, env(safe-area-inset-left)) !important;
+  }
+}
+
 /* Utility Classes */
 .container {
   max-width: 1280px;

@@ -119,6 +119,11 @@
   }
   
   @media (max-width: 768px) {
+    .scroll-section {
+      height: auto;
+      padding: 2rem 1rem;
+    }
+    
     .section-content {
       flex-direction: column;
       text-align: center;
@@ -126,6 +131,14 @@
     
     .content-left {
       max-width: 100%;
+    }
+    
+    .hero-title {
+      font-size: clamp(2.5rem, 10vw, 3.5rem);
+    }
+    
+    .hero-subtitle {
+      font-size: 1.125rem;
     }
     
     .glass-demo-card {

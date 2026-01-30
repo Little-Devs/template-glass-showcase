@@ -104,8 +104,33 @@
   }
   
   @media (max-width: 768px) {
+    .scroll-section {
+      height: auto;
+      padding: 2rem 1rem;
+    }
+    
+    .big-title {
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+    }
+    
     .interactive-demos {
       grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+    
+    .fun-card {
+      padding: 1.5rem;
+    }
+    
+    .tagline {
+      font-size: 1.125rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .interactive-demos {
+      grid-template-columns: 1fr;
     }
   }
 </style>
