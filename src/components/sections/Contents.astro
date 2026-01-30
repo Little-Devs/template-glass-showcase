@@ -158,13 +158,19 @@
     const section = document.querySelector('[data-section="contents"]');
     if (!section) return;
     
+    // Ensure elements are visible initially
+    gsap.set('.contents-panel .section-title', { opacity: 1 });
+    gsap.set('.menu-item', { opacity: 1, x: 0 });
+    gsap.set('.navigation-hint', { opacity: 1, y: 0 });
+    
     // Title fade in
     gsap.from('.contents-panel .section-title', {
       scrollTrigger: {
         trigger: section,
         start: 'left 80%',
         horizontal: true,
-        scroller: '.horizontal-scroll-container'
+        scroller: '.horizontal-scroll-container',
+        once: true
       },
       opacity: 0,
       y: -30,
@@ -178,7 +184,8 @@
         trigger: section,
         start: 'left 80%',
         horizontal: true,
-        scroller: '.horizontal-scroll-container'
+        scroller: '.horizontal-scroll-container',
+        once: true
       },
       opacity: 0,
       x: -50,
@@ -194,7 +201,8 @@
         trigger: section,
         start: 'left 80%',
         horizontal: true,
-        scroller: '.horizontal-scroll-container'
+        scroller: '.horizontal-scroll-container',
+        once: true
       },
       opacity: 0,
       y: 20,

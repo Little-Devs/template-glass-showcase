@@ -405,40 +405,47 @@ const {
       });
       
       // ========== PARALLAX EFFECTS ==========
-      // Background parallax for all gradient sections
-      sections.forEach((section, index) => {
-        // Parallax background movement
-        gsap.to(section, {
-          scrollTrigger: {
-            trigger: section,
-            start: 'left right',
-            end: 'right left',
-            scrub: 1,
-            horizontal: true,
-            scroller: '.horizontal-scroll-container'
-          },
-          backgroundPosition: '-15% center',
-          ease: 'none'
-        });
-        
-        // Float glass demo cards with parallax
-        const glassCards = section.querySelectorAll('.glass-demo-card, .glass-card:not(.menu-item)');
-        glassCards.forEach((card, cardIndex) => {
-          gsap.to(card, {
-            scrollTrigger: {
-              trigger: section,
-              start: 'left right',
-              end: 'right left',
-              scrub: 2 + (cardIndex * 0.5),
-              horizontal: true,
-              scroller: '.horizontal-scroll-container'
-            },
-            y: -20 - (cardIndex * 5),
-            rotation: cardIndex % 2 === 0 ? 2 : -2,
-            ease: 'none'
+      // Background parallax for all gradient sections (run after page load)
+      setTimeout(() => {
+        sections.forEach((section, index) => {
+          // Parallax background movement - only if section has gradient
+          if (section.classList.contains('gradient-radial-purple') || 
+              section.classList.contains('gradient-radial-deep')) {
+            gsap.to(section, {
+              scrollTrigger: {
+                trigger: section,
+                start: 'left right',
+                end: 'right left',
+                scrub: 1,
+                horizontal: true,
+                scroller: '.horizontal-scroll-container',
+                invalidateOnRefresh: true
+              },
+              backgroundPosition: '-15% center',
+              ease: 'none'
+            });
+          }
+          
+          // Float glass demo cards with parallax - only for specific cards
+          const glassCards = section.querySelectorAll('.glass-demo-card');
+          glassCards.forEach((card, cardIndex) => {
+            gsap.to(card, {
+              scrollTrigger: {
+                trigger: section,
+                start: 'left right',
+                end: 'right left',
+                scrub: 2 + (cardIndex * 0.5),
+                horizontal: true,
+                scroller: '.horizontal-scroll-container',
+                invalidateOnRefresh: true
+              },
+              y: -20 - (cardIndex * 5),
+              rotation: cardIndex % 2 === 0 ? 2 : -2,
+              ease: 'none'
+            });
           });
         });
-      });
+      }, 500);
       
       // ========== GSAP HOVER INTERACTIONS ==========
       // Enhanced glass button hovers
@@ -559,40 +566,12 @@ const {
         }, 250);
       });
       
-      // Kill ScrollTriggers for sections far from viewport
-      ScrollTrigger.create({
-        trigger: container,
-        start: 'left left',
-        end: 'right right',
-        horizontal: true,
-        scroller: '.horizontal-scroll-container',
-        onUpdate: (self) => {
-          const currentScroll = container.scrollLeft;
-          const sectionWidth = window.innerWidth;
-          const currentIndex = Math.round(currentScroll / sectionWidth);
-          
-          // Disable triggers for sections more than 3 away
-          sections.forEach((section, index) => {
-            const distance = Math.abs(index - currentIndex);
-            const triggers = ScrollTrigger.getAll().filter(t => t.trigger === section);
-            
-            if (distance > 3) {
-              triggers.forEach(t => t.disable());
-            } else {
-              triggers.forEach(t => t.enable());
-            }
-          });
-        }
-      });
-      
       // Remove will-change after animations complete
-      ScrollTrigger.batch('.glass-card, .glass-panel, .effect-item', {
-        onEnter: (elements) => {
-          gsap.delayedCall(1.5, () => {
-            elements.forEach(el => el.classList.add('animated-complete'));
-          });
-        }
-      });
+      setTimeout(() => {
+        document.querySelectorAll('.glass-card, .glass-panel, .effect-item').forEach(el => {
+          el.classList.add('animated-complete');
+        });
+      }, 2000);
       
       // Cleanup on page unload
       window.addEventListener('beforeunload', () => {
