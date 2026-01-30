@@ -8,19 +8,22 @@ A stunning horizontal-scrolling website showcasing 18 sections of glassmorphism 
 
 ## 🎨 Features
 
-- **Ultra-Smooth Scrolling**: Enhanced momentum and natural feel with proximity snap
-- **Horizontal Scroll Navigation**: Fluid scroll experience with keyboard and gesture support
-- **18 Interactive Sections**: Complete glassmorphism showcase from basics to advanced techniques
-- **App Layer Architecture**: Autohide UI with edge hover detection
-  - **Header**: Autohide, appears on top edge hover (all sections)
-  - **Footer**: Autohide, appears on bottom edge hover
-  - **Sidebar**: Autohide, appears on left edge hover or menu button
-- **Smart Scroll**: Vertical within tall sections, horizontal between sections with debouncing
-- **Glass Effect Variations**: Multiple backdrop-filter styles and transparency levels
-- **Tutorial Content**: Step-by-step guides for implementing glass effects
-- **Responsive Design**: Automatically switches to vertical scroll on mobile
-- **Performance Optimized**: CSS-only animations with GPU acceleration
-- **Accessibility**: Focus states, keyboard navigation, and semantic HTML
+- **Professional GSAP Animations**: Industry-standard animations using [GSAP](https://gsap.com) with ScrollTrigger, SplitText, and TextPlugin
+- **Entrance Animations**: All 18 sections feature staggered reveals, fade-ups, scale effects, and rotations
+- **SplitText Hero Titles**: Character-by-character reveals with 3D rotation effects
+- **Parallax Backgrounds**: Multi-layer depth with scroll-based parallax movements
+- **3D Hover Effects**: Glass cards tilt in 3D based on mouse position
+- **Magnetic Cursor**: Buttons attract cursor with elastic easing
+- **Stats Counter**: Animated number counting in finale section
+- **Scroll Progress**: Animated progress bar tracking section position
+- **Smooth Scrolling**: Hybrid direct scroll + GSAP snap for responsive feel
+- **Smart Scroll Behavior**: Vertical scrolling within tall sections, horizontal between sections
+- **60fps Performance**: Hardware-accelerated with GPU optimization and lazy loading
+- **Autohide App Layer**: Header, footer, and sidebar appear on edge hover
+- **Keyboard Navigation**: Arrow keys with smooth GSAP transitions
+- **Touch Gestures**: Swipe left/right for mobile navigation
+- **Uniform Background**: Fixed gradient backdrop for cohesive experience
+- **Responsive Design**: Adapts to all screen sizes (mobile to ultra-wide)
 
 ## 🚀 Quick Start
 
