@@ -140,3 +140,40 @@
     }
   }
 </style>
+
+<script>
+  import { gsap, ScrollTrigger } from '../../utils/gsap-setup';
+  
+  document.addEventListener('DOMContentLoaded', () => {
+    const section = document.querySelector('[data-section="considerations"]');
+    if (!section) return;
+    
+    gsap.from('[data-section="considerations"] h2', {
+      scrollTrigger: {
+        trigger: section,
+        start: 'left 80%',
+        horizontal: true,
+        scroller: '.horizontal-scroll-container'
+      },
+      opacity: 0,
+      y: -40,
+      duration: 0.8,
+      ease: 'power3.out'
+    });
+    
+    gsap.from('[data-section="considerations"] .consideration, [data-section="considerations"] .glass-card', {
+      scrollTrigger: {
+        trigger: section,
+        start: 'left 75%',
+        horizontal: true,
+        scroller: '.horizontal-scroll-container'
+      },
+      opacity: 0,
+      x: -50,
+      duration: 0.6,
+      stagger: 0.12,
+      ease: 'power2.out',
+      delay: 0.2
+    });
+  });
+</script>

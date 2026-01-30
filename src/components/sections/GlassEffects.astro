@@ -119,3 +119,44 @@
     }
   }
 </style>
+
+<script>
+  import { gsap, ScrollTrigger } from '../../utils/gsap-setup';
+  
+  document.addEventListener('DOMContentLoaded', () => {
+    const section = document.querySelector('[data-section="glass-effects"]');
+    if (!section) return;
+    
+    // Title reveal
+    gsap.from('[data-section="glass-effects"] .section-title-centered', {
+      scrollTrigger: {
+        trigger: section,
+        start: 'left 80%',
+        horizontal: true,
+        scroller: '.horizontal-scroll-container'
+      },
+      opacity: 0,
+      y: -40,
+      duration: 0.8,
+      ease: 'power3.out'
+    });
+    
+    // Effect cards pop in with scale and rotation
+    gsap.from('[data-section="glass-effects"] .effect-item', {
+      scrollTrigger: {
+        trigger: section,
+        start: 'left 70%',
+        horizontal: true,
+        scroller: '.horizontal-scroll-container'
+      },
+      opacity: 0,
+      scale: 0.8,
+      y: 50,
+      rotation: (index) => (index % 2 === 0 ? 5 : -5),
+      duration: 0.7,
+      stagger: 0.12,
+      ease: 'back.out(1.4)',
+      delay: 0.2
+    });
+  });
+</script>

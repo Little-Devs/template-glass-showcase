@@ -160,3 +160,41 @@
     }
   }
 </style>
+
+<script>
+  import { gsap, ScrollTrigger } from '../../utils/gsap-setup';
+  
+  document.addEventListener('DOMContentLoaded', () => {
+    const section = document.querySelector('[data-section="glass-ui"]');
+    if (!section) return;
+    
+    gsap.from('[data-section="glass-ui"] .section-header', {
+      scrollTrigger: {
+        trigger: section,
+        start: 'left 80%',
+        horizontal: true,
+        scroller: '.horizontal-scroll-container'
+      },
+      opacity: 0,
+      y: -40,
+      duration: 0.8,
+      ease: 'power3.out'
+    });
+    
+    gsap.from('[data-section="glass-ui"] .example-card, [data-section="glass-ui"] .glass-card', {
+      scrollTrigger: {
+        trigger: section,
+        start: 'left 75%',
+        horizontal: true,
+        scroller: '.horizontal-scroll-container'
+      },
+      opacity: 0,
+      y: 50,
+      scale: 0.95,
+      duration: 0.6,
+      stagger: 0.12,
+      ease: 'power3.out',
+      delay: 0.2
+    });
+  });
+</script>

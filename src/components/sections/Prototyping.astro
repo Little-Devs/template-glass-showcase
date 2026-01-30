@@ -145,3 +145,41 @@
     }
   }
 </style>
+
+<script>
+  import { gsap, ScrollTrigger } from '../../utils/gsap-setup';
+  
+  document.addEventListener('DOMContentLoaded', () => {
+    const section = document.querySelector('[data-section="prototyping"]');
+    if (!section) return;
+    
+    gsap.from('[data-section="prototyping"] h2', {
+      scrollTrigger: {
+        trigger: section,
+        start: 'left 80%',
+        horizontal: true,
+        scroller: '.horizontal-scroll-container'
+      },
+      opacity: 0,
+      x: -60,
+      duration: 0.8,
+      ease: 'power3.out'
+    });
+    
+    gsap.from('[data-section="prototyping"] .prototype-card, [data-section="prototyping"] .glass-panel', {
+      scrollTrigger: {
+        trigger: section,
+        start: 'left 75%',
+        horizontal: true,
+        scroller: '.horizontal-scroll-container'
+      },
+      opacity: 0,
+      y: 60,
+      scale: 0.9,
+      duration: 0.7,
+      stagger: 0.15,
+      ease: 'back.out(1.4)',
+      delay: 0.2
+    });
+  });
+</script>

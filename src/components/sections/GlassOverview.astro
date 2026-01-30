@@ -134,3 +134,84 @@
     }
   }
 </style>
+
+<script>
+  import { gsap, ScrollTrigger, SplitText } from '../../utils/gsap-setup';
+  
+  document.addEventListener('DOMContentLoaded', () => {
+    const section = document.querySelector('[data-section="glass-overview"]');
+    if (!section) return;
+    
+    // SplitText animation for hero title
+    const heroTitle = section.querySelector('.hero-title');
+    if (heroTitle) {
+      const split = new SplitText(heroTitle, { type: 'chars,words' });
+      
+      gsap.from(split.chars, {
+        scrollTrigger: {
+          trigger: section,
+          start: 'left 80%',
+          horizontal: true,
+          scroller: '.horizontal-scroll-container'
+        },
+        opacity: 0,
+        y: 50,
+        rotationX: -90,
+        transformOrigin: '0% 50% -50',
+        stagger: 0.02,
+        duration: 0.8,
+        ease: 'back.out(1.7)'
+      });
+    }
+    
+    // Entrance animation for hero content
+    gsap.from('.content-left .hero-subtitle', {
+      scrollTrigger: {
+        trigger: section,
+        start: 'left 80%',
+        end: 'left 20%',
+        horizontal: true,
+        scroller: '.horizontal-scroll-container'
+      },
+      opacity: 0,
+      y: 40,
+      duration: 0.8,
+      ease: 'power3.out',
+      delay: 0.4
+    });
+    
+    gsap.from('.content-left .glass-button', {
+      scrollTrigger: {
+        trigger: section,
+        start: 'left 80%',
+        end: 'left 20%',
+        horizontal: true,
+        scroller: '.horizontal-scroll-container'
+      },
+      opacity: 0,
+      y: 40,
+      scale: 0.9,
+      duration: 0.8,
+      ease: 'back.out(1.7)',
+      delay: 0.6
+    });
+    
+    // Glass card float in with rotation
+    gsap.from('.glass-demo-card', {
+      scrollTrigger: {
+        trigger: section,
+        start: 'left 80%',
+        end: 'left 20%',
+        horizontal: true,
+        scroller: '.horizontal-scroll-container'
+      },
+      opacity: 0,
+      scale: 0.8,
+      y: 60,
+      rotation: -10,
+      duration: 1,
+      ease: 'back.out(1.5)',
+      delay: 0.5
+    });
+  });
+</script>

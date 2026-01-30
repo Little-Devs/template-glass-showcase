@@ -2,9 +2,11 @@
 import '../styles/global.css';
 import '../styles/glassmorphism.css';
 import '../styles/horizontal-scroll.css';
+import '../styles/animations.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Sidebar from '../components/Sidebar.astro';
+import ScrollProgress from '../components/ScrollProgress.astro';
 
 interface Props {
   title?: string;
@@ -30,6 +32,7 @@ const {
 </head>
 <body>
   <!-- App Layer Structure -->
+  <ScrollProgress />
   {showHeader && <Header />}
   {showFooter && <Footer />}
   <Sidebar />
@@ -108,7 +111,7 @@ const {
   </style>
   
   <script>
-    import gsap from 'gsap';
+    import { gsap, ScrollTrigger } from '../utils/gsap-setup';
     
     // Wait for DOM to be ready
     document.addEventListener('DOMContentLoaded', () => {
@@ -117,6 +120,15 @@ const {
       
       const sections = document.querySelectorAll('.scroll-section');
       const navDots = document.querySelectorAll('.nav-dot');
+      
+      // Configure ScrollTrigger for horizontal scrolling
+      ScrollTrigger.defaults({
+        horizontal: true,
+        scroller: '.horizontal-scroll-container'
+      });
+      
+      // Enable smooth scrolling normalization
+      ScrollTrigger.normalizeScroll(true);
       
       // Hybrid: Direct scroll + GSAP snap for best of both worlds
       let scrollTimeout = null;
@@ -392,12 +404,199 @@ const {
         link.addEventListener('click', closeSidebar);
       });
       
+      // ========== PARALLAX EFFECTS ==========
+      // Background parallax for all gradient sections
+      sections.forEach((section, index) => {
+        // Parallax background movement
+        gsap.to(section, {
+          scrollTrigger: {
+            trigger: section,
+            start: 'left right',
+            end: 'right left',
+            scrub: 1,
+            horizontal: true,
+            scroller: '.horizontal-scroll-container'
+          },
+          backgroundPosition: '-15% center',
+          ease: 'none'
+        });
+        
+        // Float glass demo cards with parallax
+        const glassCards = section.querySelectorAll('.glass-demo-card, .glass-card:not(.menu-item)');
+        glassCards.forEach((card, cardIndex) => {
+          gsap.to(card, {
+            scrollTrigger: {
+              trigger: section,
+              start: 'left right',
+              end: 'right left',
+              scrub: 2 + (cardIndex * 0.5),
+              horizontal: true,
+              scroller: '.horizontal-scroll-container'
+            },
+            y: -20 - (cardIndex * 5),
+            rotation: cardIndex % 2 === 0 ? 2 : -2,
+            ease: 'none'
+          });
+        });
+      });
+      
+      // ========== GSAP HOVER INTERACTIONS ==========
+      // Enhanced glass button hovers
+      document.querySelectorAll('.glass-button').forEach(btn => {
+        const hoverTimeline = gsap.timeline({ paused: true });
+        
+        hoverTimeline
+          .to(btn, { scale: 1.05, duration: 0.3, ease: 'power2.out' })
+          .to(btn.querySelector('span'), { x: 5, duration: 0.3 }, '<')
+          .to(btn, { 
+            boxShadow: '0 8px 32px rgba(138, 43, 226, 0.4)',
+            duration: 0.3 
+          }, '<');
+        
+        btn.addEventListener('mouseenter', () => hoverTimeline.play());
+        btn.addEventListener('mouseleave', () => hoverTimeline.reverse());
+      });
+      
+      // 3D tilt effect for glass cards
+      document.querySelectorAll('.glass-card:not(.menu-item), .glass-panel').forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
+          
+          const rotateX = (y - centerY) / 10;
+          const rotateY = (centerX - x) / 10;
+          
+          gsap.to(card, {
+            rotationX: rotateX,
+            rotationY: rotateY,
+            duration: 0.5,
+            ease: 'power2.out',
+            transformPerspective: 1000,
+            transformStyle: 'preserve-3d'
+          });
+        });
+        
+        card.addEventListener('mouseleave', () => {
+          gsap.to(card, {
+            rotationX: 0,
+            rotationY: 0,
+            duration: 0.5,
+            ease: 'power2.out'
+          });
+        });
+      });
+      
+      // ========== MAGNETIC CURSOR EFFECT ==========
+      const buttons = document.querySelectorAll('.glass-button');
+      
+      buttons.forEach(button => {
+        let isNearButton = false;
+        
+        const handleMouseMove = (e) => {
+          const rect = button.getBoundingClientRect();
+          const x = e.clientX - rect.left - rect.width / 2;
+          const y = e.clientY - rect.top - rect.height / 2;
+          
+          const distance = Math.sqrt(x * x + y * y);
+          const maxDistance = 100;
+          
+          if (distance < maxDistance) {
+            if (!isNearButton) {
+              isNearButton = true;
+            }
+            const strength = (maxDistance - distance) / maxDistance;
+            gsap.to(button, {
+              x: x * strength * 0.3,
+              y: y * strength * 0.3,
+              duration: 0.3,
+              ease: 'power2.out'
+            });
+          } else if (isNearButton) {
+            isNearButton = false;
+            gsap.to(button, {
+              x: 0,
+              y: 0,
+              duration: 0.5,
+              ease: 'elastic.out(1, 0.5)'
+            });
+          }
+        };
+        
+        const handleMouseLeave = () => {
+          isNearButton = false;
+          gsap.to(button, {
+            x: 0,
+            y: 0,
+            duration: 0.5,
+            ease: 'elastic.out(1, 0.5)'
+          });
+        };
+        
+        document.addEventListener('mousemove', handleMouseMove);
+        button.addEventListener('mouseleave', handleMouseLeave);
+      });
+      
       // Log initial state for debugging
       console.log('App initialized:', {
         containerWidth: container.scrollWidth,
         viewportWidth: window.innerWidth,
         sections: sections.length,
-        features: ['header overlay', 'sidebar', 'mouse wheel', 'keyboard', 'touch swipe']
+        features: ['header overlay', 'sidebar', 'mouse wheel', 'keyboard', 'touch swipe', 'gsap animations'],
+        gsapVersion: gsap.version
+      });
+      
+      // ========== PERFORMANCE OPTIMIZATIONS ==========
+      // Lazy loading: Refresh ScrollTrigger on window resize
+      let resizeTimeout;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+          ScrollTrigger.refresh();
+        }, 250);
+      });
+      
+      // Kill ScrollTriggers for sections far from viewport
+      ScrollTrigger.create({
+        trigger: container,
+        start: 'left left',
+        end: 'right right',
+        horizontal: true,
+        scroller: '.horizontal-scroll-container',
+        onUpdate: (self) => {
+          const currentScroll = container.scrollLeft;
+          const sectionWidth = window.innerWidth;
+          const currentIndex = Math.round(currentScroll / sectionWidth);
+          
+          // Disable triggers for sections more than 3 away
+          sections.forEach((section, index) => {
+            const distance = Math.abs(index - currentIndex);
+            const triggers = ScrollTrigger.getAll().filter(t => t.trigger === section);
+            
+            if (distance > 3) {
+              triggers.forEach(t => t.disable());
+            } else {
+              triggers.forEach(t => t.enable());
+            }
+          });
+        }
+      });
+      
+      // Remove will-change after animations complete
+      ScrollTrigger.batch('.glass-card, .glass-panel, .effect-item', {
+        onEnter: (elements) => {
+          gsap.delayedCall(1.5, () => {
+            elements.forEach(el => el.classList.add('animated-complete'));
+          });
+        }
+      });
+      
+      // Cleanup on page unload
+      window.addEventListener('beforeunload', () => {
+        ScrollTrigger.getAll().forEach(trigger => trigger.kill());
       });
     });
   </script>

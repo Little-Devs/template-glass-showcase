@@ -121,3 +121,41 @@
     50% { opacity: 0.7; }
   }
 </style>
+
+<script>
+  import { gsap, ScrollTrigger } from '../../utils/gsap-setup';
+  
+  document.addEventListener('DOMContentLoaded', () => {
+    const section = document.querySelector('[data-section="video-blends"]');
+    if (!section) return;
+    
+    gsap.from('[data-section="video-blends"] h2', {
+      scrollTrigger: {
+        trigger: section,
+        start: 'left 80%',
+        horizontal: true,
+        scroller: '.horizontal-scroll-container'
+      },
+      opacity: 0,
+      scale: 0.9,
+      duration: 0.7,
+      ease: 'back.out(1.5)'
+    });
+    
+    gsap.from('[data-section="video-blends"] .video-example, [data-section="video-blends"] .glass-card', {
+      scrollTrigger: {
+        trigger: section,
+        start: 'left 75%',
+        horizontal: true,
+        scroller: '.horizontal-scroll-container'
+      },
+      opacity: 0,
+      y: 50,
+      rotation: (index) => (index % 2 === 0 ? 3 : -3),
+      duration: 0.7,
+      stagger: 0.12,
+      ease: 'power3.out',
+      delay: 0.2
+    });
+  });
+</script>

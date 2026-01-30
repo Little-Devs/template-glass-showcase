@@ -1,0 +1,112 @@
+---
+// Animated scroll progress indicator
+---
+
+<div class="scroll-progress-container">
+  <div class="scroll-progress-bar"></div>
+  <span class="scroll-progress-text">Section <span id="current-section">1</span> of 18</span>
+</div>
+
+<style>
+  .scroll-progress-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    z-index: 999;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  
+  .scroll-progress-container.hidden {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  
+  .scroll-progress-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, 
+      rgba(138, 43, 226, 0.8) 0%,
+      rgba(147, 51, 234, 1) 50%,
+      rgba(168, 85, 247, 0.8) 100%
+    );
+    box-shadow: 0 0 20px rgba(138, 43, 226, 0.6);
+    transition: width 0.1s ease-out;
+  }
+  
+  .scroll-progress-text {
+    position: absolute;
+    top: 8px;
+    right: 1rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.7);
+    background: rgba(26, 11, 46, 0.7);
+    backdrop-filter: blur(10px);
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  #current-section {
+    color: rgba(168, 85, 247, 1);
+    font-weight: 700;
+  }
+</style>
+
+<script>
+  import { gsap, ScrollTrigger } from '../utils/gsap-setup';
+  
+  document.addEventListener('DOMContentLoaded', () => {
+    const container = document.querySelector('.horizontal-scroll-container');
+    const progressBar = document.querySelector('.scroll-progress-bar');
+    const progressContainer = document.querySelector('.scroll-progress-container');
+    const currentSectionSpan = document.getElementById('current-section');
+    
+    if (!container || !progressBar) return;
+    
+    // Animate progress bar with scroll
+    gsap.to(progressBar, {
+      scrollTrigger: {
+        trigger: container,
+        start: 'left left',
+        end: 'right right',
+        scrub: 0.3,
+        horizontal: true,
+        scroller: '.horizontal-scroll-container',
+        onUpdate: (self) => {
+          // Update section number based on progress
+          const totalSections = 18;
+          const currentSection = Math.min(totalSections, Math.ceil(self.progress * totalSections));
+          if (currentSectionSpan) {
+            currentSectionSpan.textContent = currentSection;
+          }
+        }
+      },
+      width: '100%',
+      ease: 'none'
+    });
+    
+    // Autohide with header - show on mouse near top edge
+    let progressTimeout;
+    document.addEventListener('mousemove', (e) => {
+      if (e.clientY < 50) {
+        progressContainer.classList.remove('hidden');
+        clearTimeout(progressTimeout);
+      } else {
+        clearTimeout(progressTimeout);
+        progressTimeout = setTimeout(() => {
+          progressContainer.classList.add('hidden');
+        }, 2000);
+      }
+    });
+    
+    // Initially hide after 3 seconds
+    setTimeout(() => {
+      progressContainer.classList.add('hidden');
+    }, 3000);
+  });
+</script>

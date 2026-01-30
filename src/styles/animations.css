@@ -1,0 +1,83 @@
+/* Animation-specific performance optimizations */
+
+/* GPU acceleration hints for animated elements */
+.hero-title,
+.finale-title,
+.glass-button,
+.glass-card,
+.glass-panel,
+.glass-demo-card,
+.effect-item,
+.menu-item,
+.scroll-progress-bar {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Optimize for smooth scrolling */
+.horizontal-scroll-container {
+  will-change: scroll-position;
+  contain: layout style paint;
+}
+
+.scroll-section {
+  will-change: transform;
+  contain: layout style paint;
+}
+
+/* Reduce will-change after animation completes */
+.animated-complete {
+  will-change: auto;
+}
+
+/* Force hardware acceleration for GSAP animations */
+[data-gsap] {
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* Smooth text rendering during animations */
+.hero-title,
+.finale-title,
+.section-title {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Optimize backdrop-filter performance */
+.glass,
+.glass-panel,
+.glass-card,
+.glass-button {
+  isolation: isolate;
+}
+
+/* Reduce repaints for fixed elements */
+.scroll-progress-container,
+#app-header,
+#app-footer,
+#app-sidebar {
+  contain: layout style;
+  will-change: transform, opacity;
+}
+
+/* Motion-safe fallback */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .hero-title,
+  .finale-title,
+  .glass-button,
+  .glass-card {
+    will-change: auto !important;
+  }
+}

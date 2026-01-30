@@ -120,3 +120,41 @@
     }
   }
 </style>
+
+<script>
+  import { gsap, ScrollTrigger } from '../../utils/gsap-setup';
+  
+  document.addEventListener('DOMContentLoaded', () => {
+    const section = document.querySelector('[data-section="introduction"]');
+    if (!section) return;
+    
+    gsap.from('[data-section="introduction"] .section-title', {
+      scrollTrigger: {
+        trigger: section,
+        start: 'left 80%',
+        horizontal: true,
+        scroller: '.horizontal-scroll-container'
+      },
+      opacity: 0,
+      y: -40,
+      duration: 0.8,
+      ease: 'power3.out'
+    });
+    
+    gsap.from('[data-section="introduction"] .feature-card', {
+      scrollTrigger: {
+        trigger: section,
+        start: 'left 75%',
+        horizontal: true,
+        scroller: '.horizontal-scroll-container'
+      },
+      opacity: 0,
+      y: 60,
+      scale: 0.9,
+      duration: 0.7,
+      stagger: 0.15,
+      ease: 'back.out(1.3)',
+      delay: 0.2
+    });
+  });
+</script>

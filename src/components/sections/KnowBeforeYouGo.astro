@@ -149,3 +149,41 @@
     }
   }
 </style>
+
+<script>
+  import { gsap, ScrollTrigger} from '../../utils/gsap-setup';
+  
+  document.addEventListener('DOMContentLoaded', () => {
+    const section = document.querySelector('[data-section="know-before"]');
+    if (!section) return;
+    
+    gsap.from('[data-section="know-before"] h2', {
+      scrollTrigger: {
+        trigger: section,
+        start: 'left 80%',
+        horizontal: true,
+        scroller: '.horizontal-scroll-container'
+      },
+      opacity: 0,
+      scale: 0.9,
+      duration: 0.7,
+      ease: 'back.out(1.5)'
+    });
+    
+    gsap.from('[data-section="know-before"] .tip, [data-section="know-before"] .glass-panel', {
+      scrollTrigger: {
+        trigger: section,
+        start: 'left 75%',
+        horizontal: true,
+        scroller: '.horizontal-scroll-container'
+      },
+      opacity: 0,
+      y: 40,
+      scale: 0.95,
+      duration: 0.6,
+      stagger: 0.1,
+      ease: 'power3.out',
+      delay: 0.2
+    });
+  });
+</script>

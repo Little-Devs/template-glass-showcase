@@ -141,3 +141,42 @@
     }
   }
 </style>
+
+<script>
+  import { gsap, ScrollTrigger } from '../../utils/gsap-setup';
+  
+  document.addEventListener('DOMContentLoaded', () => {
+    const section = document.querySelector('[data-section="resource-cards"]');
+    if (!section) return;
+    
+    gsap.from('[data-section="resource-cards"] h2', {
+      scrollTrigger: {
+        trigger: section,
+        start: 'left 80%',
+        horizontal: true,
+        scroller: '.horizontal-scroll-container'
+      },
+      opacity: 0,
+      y: -40,
+      duration: 0.8,
+      ease: 'power3.out'
+    });
+    
+    gsap.from('[data-section="resource-cards"] .resource-card, [data-section="resource-cards"] .glass-card', {
+      scrollTrigger: {
+        trigger: section,
+        start: 'left 75%',
+        horizontal: true,
+        scroller: '.horizontal-scroll-container'
+      },
+      opacity: 0,
+      y: 60,
+      scale: 0.85,
+      rotation: (index) => (index % 2 === 0 ? 4 : -4),
+      duration: 0.7,
+      stagger: 0.12,
+      ease: 'back.out(1.5)',
+      delay: 0.2
+    });
+  });
+</script>
