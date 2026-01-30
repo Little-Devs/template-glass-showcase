@@ -108,6 +108,8 @@ const {
   </style>
   
   <script>
+    import gsap from 'gsap';
+    
     // Wait for DOM to be ready
     document.addEventListener('DOMContentLoaded', () => {
       const container = document.querySelector('.horizontal-scroll-container');
@@ -116,7 +118,18 @@ const {
       const sections = document.querySelectorAll('.scroll-section');
       const navDots = document.querySelectorAll('.nav-dot');
       
-      // Smooth keyboard navigation
+      // GSAP-powered ultra-smooth scrolling
+      let scrollTimeout = null;
+      let isScrolling = false;
+      let accumulatedDelta = 0;
+      
+      // Create GSAP quickTo for instant responsive scrolling
+      const quickScroll = gsap.quickTo(container, 'scrollLeft', {
+        duration: 0.5,
+        ease: 'power2.out'
+      });
+      
+      // Smooth keyboard navigation with GSAP
       document.addEventListener('keydown', (e) => {
         if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
           e.preventDefault();
@@ -126,33 +139,14 @@ const {
           const currentIndex = Math.round(currentScroll / sectionWidth);
           const targetIndex = Math.max(0, Math.min(sections.length - 1, currentIndex + direction));
           
-          // Smooth scroll to target section
-          container.scrollTo({
-            left: targetIndex * sectionWidth,
-            behavior: 'smooth'
+          // GSAP smooth scroll to target section
+          gsap.to(container, {
+            scrollLeft: targetIndex * sectionWidth,
+            duration: 0.8,
+            ease: 'power3.inOut'
           });
         }
       });
-      
-      // Enhanced smooth scroll with momentum and easing
-      let scrollTimeout = null;
-      let isScrolling = false;
-      let velocity = 0;
-      let lastScrollTime = Date.now();
-      let rafId = null;
-      
-      // Momentum decay function for ultra-smooth scrolling
-      function applyMomentum() {
-        if (Math.abs(velocity) > 0.1) {
-          container.scrollLeft += velocity;
-          velocity *= 0.92; // Smooth deceleration
-          rafId = requestAnimationFrame(applyMomentum);
-        } else {
-          velocity = 0;
-          cancelAnimationFrame(rafId);
-          rafId = null;
-        }
-      }
       
       container.addEventListener('wheel', (e) => {
         const currentScroll = container.scrollLeft;
@@ -175,73 +169,61 @@ const {
             return;
           }
           
-          // User is at top/bottom, smooth transition to next section
+          // User is at top/bottom, smooth GSAP transition to next section
           e.preventDefault();
           
           if (!isScrolling) {
             isScrolling = true;
             
             if (e.deltaY > 0 && isAtBottom && currentIndex < sections.length - 1) {
-              container.scrollTo({
-                left: (currentIndex + 1) * sectionWidth,
-                behavior: 'smooth'
+              gsap.to(container, {
+                scrollLeft: (currentIndex + 1) * sectionWidth,
+                duration: 0.8,
+                ease: 'power3.inOut',
+                onComplete: () => { isScrolling = false; }
               });
             } else if (e.deltaY < 0 && isAtTop && currentIndex > 0) {
-              container.scrollTo({
-                left: (currentIndex - 1) * sectionWidth,
-                behavior: 'smooth'
+              gsap.to(container, {
+                scrollLeft: (currentIndex - 1) * sectionWidth,
+                duration: 0.8,
+                ease: 'power3.inOut',
+                onComplete: () => { isScrolling = false; }
               });
+            } else {
+              isScrolling = false;
             }
-            
-            // Debounce for smoother experience
-            setTimeout(() => { isScrolling = false; }, 800);
           }
         } else {
-          // Ultra-smooth horizontal scroll with momentum
+          // Ultra-smooth GSAP-powered horizontal scroll
           e.preventDefault();
           
-          // Calculate time delta for velocity
-          const now = Date.now();
-          const timeDelta = Math.max(1, now - lastScrollTime);
-          lastScrollTime = now;
-          
-          // Use smaller deltas for finer control and smoother feel
+          // Use raw delta for responsive feel on all screen sizes
           const rawDelta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
-          const delta = rawDelta * 0.55; // Reduced from 0.8 for smoother control
+          const delta = rawDelta * 0.7; // Balanced multiplier for all screens
           
-          // Apply immediate scroll
-          container.scrollBy({
-            left: delta,
-            behavior: 'auto'
-          });
+          // Accumulate delta for smoother continuous scrolling
+          accumulatedDelta += delta;
           
-          // Update velocity for momentum (optional enhancement)
-          velocity = delta / timeDelta * 16; // Normalize to 60fps
+          // Apply GSAP quickTo for buttery smooth scrolling
+          const newScrollPos = currentScroll + delta;
+          quickScroll(newScrollPos);
           
-          // Cancel any existing momentum
-          if (rafId) {
-            cancelAnimationFrame(rafId);
-            rafId = null;
-          }
-          
-          // Snap to nearest section after scroll stops (increased delay)
+          // Snap to nearest section after scroll stops
           clearTimeout(scrollTimeout);
           scrollTimeout = setTimeout(() => {
             const finalScroll = container.scrollLeft;
             const finalIndex = Math.round(finalScroll / sectionWidth);
-            
-            // Custom easing snap for extra smoothness
             const targetScroll = finalIndex * sectionWidth;
-            const distance = targetScroll - finalScroll;
             
-            if (Math.abs(distance) > 1) {
-              // Use smooth scroll for snap
-              container.scrollTo({
-                left: targetScroll,
-                behavior: 'smooth'
-              });
-            }
-          }, 200); // Increased from 150ms for smoother feel
+            // GSAP snap with smooth easing
+            gsap.to(container, {
+              scrollLeft: targetScroll,
+              duration: 0.6,
+              ease: 'power2.inOut'
+            });
+            
+            accumulatedDelta = 0;
+          }, 180);
         }
       }, { passive: false });
       
