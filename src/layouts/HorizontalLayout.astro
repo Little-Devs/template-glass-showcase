@@ -50,7 +50,7 @@ const {
       flex-direction: row;
       overflow-x: scroll;
       overflow-y: hidden;
-      scroll-snap-type: x mandatory;
+      scroll-snap-type: x proximity;
       scroll-behavior: smooth;
       height: 100vh;
       width: 100vw;
@@ -58,6 +58,7 @@ const {
       position: fixed;
       top: 0;
       left: 0;
+      -webkit-overflow-scrolling: touch;
     }
     
     /* Scrollbar hidden - see horizontal-scroll.css */
@@ -73,9 +74,10 @@ const {
       height: auto !important;
       max-height: 100vh !important;
       flex-shrink: 0 !important;
-      scroll-snap-align: start !important;
+      scroll-snap-align: center !important;
       overflow-y: auto !important;
       overflow-x: hidden !important;
+      -webkit-overflow-scrolling: touch !important;
     }
     
     /* Hide section scrollbars */
@@ -110,30 +112,29 @@ const {
       const sections = document.querySelectorAll('.scroll-section');
       const navDots = document.querySelectorAll('.nav-dot');
       
-      // Keyboard navigation for horizontal scroll
+      // Smooth keyboard navigation
       document.addEventListener('keydown', (e) => {
-        const currentScroll = container.scrollLeft;
-        const sectionWidth = window.innerWidth;
-        const currentIndex = Math.round(currentScroll / sectionWidth);
-        
-        if (e.key === 'ArrowRight' && currentIndex < sections.length - 1) {
+        if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
           e.preventDefault();
+          const direction = e.key === 'ArrowRight' ? 1 : -1;
+          const currentScroll = container.scrollLeft;
+          const sectionWidth = window.innerWidth;
+          const currentIndex = Math.round(currentScroll / sectionWidth);
+          const targetIndex = Math.max(0, Math.min(sections.length - 1, currentIndex + direction));
+          
+          // Smooth scroll to target section
           container.scrollTo({
-            left: (currentIndex + 1) * sectionWidth,
-            behavior: 'smooth'
-          });
-        } else if (e.key === 'ArrowLeft' && currentIndex > 0) {
-          e.preventDefault();
-          container.scrollTo({
-            left: (currentIndex - 1) * sectionWidth,
+            left: targetIndex * sectionWidth,
             behavior: 'smooth'
           });
         }
       });
       
-      // Smart scroll: vertical within section, horizontal between sections
+      // Enhanced smooth scroll with momentum
+      let scrollTimeout = null;
+      let isScrolling = false;
+      
       container.addEventListener('wheel', (e) => {
-        // Find the current section being viewed
         const currentScroll = container.scrollLeft;
         const sectionWidth = window.innerWidth;
         const currentIndex = Math.round(currentScroll / sectionWidth);
@@ -151,75 +152,110 @@ const {
           
           // Allow vertical scroll within section
           if ((e.deltaY > 0 && !isAtBottom) || (e.deltaY < 0 && !isAtTop)) {
-            // Let the section scroll vertically
             return;
           }
           
-          // User is at top/bottom of section, allow horizontal navigation
+          // User is at top/bottom, smooth transition to next section
           e.preventDefault();
           
-          if (e.deltaY > 0 && isAtBottom && currentIndex < sections.length - 1) {
-            // Scroll right to next section
-            container.scrollTo({
-              left: (currentIndex + 1) * sectionWidth,
-              behavior: 'smooth'
-            });
-          } else if (e.deltaY < 0 && isAtTop && currentIndex > 0) {
-            // Scroll left to previous section
-            container.scrollTo({
-              left: (currentIndex - 1) * sectionWidth,
-              behavior: 'smooth'
-            });
+          if (!isScrolling) {
+            isScrolling = true;
+            
+            if (e.deltaY > 0 && isAtBottom && currentIndex < sections.length - 1) {
+              container.scrollTo({
+                left: (currentIndex + 1) * sectionWidth,
+                behavior: 'smooth'
+              });
+            } else if (e.deltaY < 0 && isAtTop && currentIndex > 0) {
+              container.scrollTo({
+                left: (currentIndex - 1) * sectionWidth,
+                behavior: 'smooth'
+              });
+            }
+            
+            // Debounce for smoother experience
+            setTimeout(() => { isScrolling = false; }, 800);
           }
         } else {
-          // No vertical overflow or horizontal scroll gesture
+          // Smooth horizontal scroll with momentum
           e.preventDefault();
-          const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+          
+          // Use smaller deltas for smoother feel
+          const delta = (Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY) * 0.8;
           
           container.scrollBy({
             left: delta,
             behavior: 'auto'
           });
+          
+          // Snap to nearest section after scroll stops
+          clearTimeout(scrollTimeout);
+          scrollTimeout = setTimeout(() => {
+            const finalScroll = container.scrollLeft;
+            const finalIndex = Math.round(finalScroll / sectionWidth);
+            container.scrollTo({
+              left: finalIndex * sectionWidth,
+              behavior: 'smooth'
+            });
+          }, 150);
         }
       }, { passive: false });
       
-      // Touch swipe support (already works with native scroll but adding optimization)
+      // Enhanced touch swipe with velocity detection
       let touchStartX = 0;
-      let touchEndX = 0;
+      let touchStartY = 0;
+      let touchStartTime = 0;
+      let isSwiping = false;
       
       container.addEventListener('touchstart', (e) => {
         touchStartX = e.changedTouches[0].screenX;
+        touchStartY = e.changedTouches[0].screenY;
+        touchStartTime = Date.now();
+        isSwiping = false;
+      }, { passive: true });
+      
+      container.addEventListener('touchmove', (e) => {
+        if (!isSwiping) {
+          const deltaX = Math.abs(e.changedTouches[0].screenX - touchStartX);
+          const deltaY = Math.abs(e.changedTouches[0].screenY - touchStartY);
+          
+          // Determine if this is a horizontal swipe
+          if (deltaX > deltaY && deltaX > 10) {
+            isSwiping = true;
+          }
+        }
       }, { passive: true });
       
       container.addEventListener('touchend', (e) => {
-        touchEndX = e.changedTouches[0].screenX;
-        handleSwipe();
-      }, { passive: true });
-      
-      function handleSwipe() {
-        const swipeThreshold = 50; // minimum distance for a swipe
-        const diff = touchStartX - touchEndX;
-        
-        if (Math.abs(diff) > swipeThreshold) {
-          const currentScroll = container.scrollLeft;
-          const sectionWidth = window.innerWidth;
-          const currentIndex = Math.round(currentScroll / sectionWidth);
+        if (isSwiping) {
+          const touchEndX = e.changedTouches[0].screenX;
+          const touchEndTime = Date.now();
+          const distance = touchStartX - touchEndX;
+          const duration = touchEndTime - touchStartTime;
+          const velocity = Math.abs(distance) / duration;
           
-          if (diff > 0 && currentIndex < sections.length - 1) {
-            // Swipe left - go to next
-            container.scrollTo({
-              left: (currentIndex + 1) * sectionWidth,
-              behavior: 'smooth'
-            });
-          } else if (diff < 0 && currentIndex > 0) {
-            // Swipe right - go to previous
-            container.scrollTo({
-              left: (currentIndex - 1) * sectionWidth,
-              behavior: 'smooth'
-            });
+          // Swipe threshold adjusted for velocity
+          const swipeThreshold = velocity > 0.5 ? 30 : 75;
+          
+          if (Math.abs(distance) > swipeThreshold) {
+            const currentScroll = container.scrollLeft;
+            const sectionWidth = window.innerWidth;
+            const currentIndex = Math.round(currentScroll / sectionWidth);
+            
+            if (distance > 0 && currentIndex < sections.length - 1) {
+              container.scrollTo({
+                left: (currentIndex + 1) * sectionWidth,
+                behavior: 'smooth'
+              });
+            } else if (distance < 0 && currentIndex > 0) {
+              container.scrollTo({
+                left: (currentIndex - 1) * sectionWidth,
+                behavior: 'smooth'
+              });
+            }
           }
         }
-      }
+      }, { passive: true });
       
       // Update active nav dot on horizontal scroll (if nav is visible)
       if (navDots.length > 0) {

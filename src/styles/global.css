@@ -116,6 +116,16 @@ button {
   -ms-overflow-style: none; /* IE/Edge */
 }
 
+/* Smooth scrolling for all elements */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Enhanced momentum scrolling */
+* {
+  -webkit-overflow-scrolling: touch;
+}
+
 /* Utility Classes */
 .container {
   max-width: 1280px;

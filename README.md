@@ -8,13 +8,14 @@ A stunning horizontal-scrolling website showcasing 18 sections of glassmorphism 
 
 ## 🎨 Features
 
-- **Horizontal Scroll Navigation**: Smooth scroll-snap experience with keyboard and gesture support
+- **Ultra-Smooth Scrolling**: Enhanced momentum and natural feel with proximity snap
+- **Horizontal Scroll Navigation**: Fluid scroll experience with keyboard and gesture support
 - **18 Interactive Sections**: Complete glassmorphism showcase from basics to advanced techniques
 - **App Layer Architecture**: Autohide UI with edge hover detection
   - **Header**: Autohide, appears on top edge hover (all sections)
   - **Footer**: Autohide, appears on bottom edge hover
   - **Sidebar**: Autohide, appears on left edge hover or menu button
-- **Smart Scroll**: Vertical within tall sections, horizontal between sections
+- **Smart Scroll**: Vertical within tall sections, horizontal between sections with debouncing
 - **Glass Effect Variations**: Multiple backdrop-filter styles and transparency levels
 - **Tutorial Content**: Step-by-step guides for implementing glass effects
 - **Responsive Design**: Automatically switches to vertical scroll on mobile
@@ -93,6 +94,7 @@ glass-showcase/
 ├── README.md
 ├── APP_LAYER.md                # App layer architecture
 ├── AUTOHIDE.md                 # Autohide UI system
+├── SMOOTH_SCROLL.md            # Smooth scrolling enhancements
 ├── SCROLL_BEHAVIOR.md          # Smart scroll documentation
 └── TESTING.md                  # Testing guide
 ```
