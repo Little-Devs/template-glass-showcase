@@ -68,5 +68,7 @@
     max-width: 100vw !important; /* Prevent horizontal overflow */
     padding: 1rem !important; /* Reduced from 2rem */
     box-sizing: border-box !important;
+    overflow-y: visible !important; /* Remove internal scrolling on mobile */
+    overflow-x: hidden !important;
   }
 }
