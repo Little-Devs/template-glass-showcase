@@ -1,0 +1,162 @@
+---
+// Glass for UI Section
+---
+
+<section class="scroll-section gradient-radial-deep" data-section="glass-ui">
+  <div class="section-wrapper-full">
+    <div class="content-split">
+      <div class="text-content">
+        <span class="tag glass">UI Design</span>
+        <h2 class="section-title">Glass for UI</h2>
+        <p class="section-text">
+          Glassmorphism brings a premium, modern aesthetic to user interfaces. Use it for cards, modals, navigation bars, and overlays to create depth without overwhelming content.
+        </p>
+        
+        <ul class="benefit-list">
+          <li>✨ Modern & sophisticated look</li>
+          <li>📱 Works great on mobile and desktop</li>
+          <li>🎨 Flexible with any color scheme</li>
+          <li>♿ Maintains readability when done right</li>
+        </ul>
+      </div>
+      
+      <div class="ui-examples">
+        <div class="ui-card glass-card">
+          <div class="card-header">
+            <h3>Glass Card</h3>
+            <span class="badge glass">New</span>
+          </div>
+          <p>Perfect for content containers</p>
+        </div>
+        
+        <div class="ui-navbar glass">
+          <div class="nav-items">
+            <span>Home</span>
+            <span>Features</span>
+            <span>Pricing</span>
+          </div>
+        </div>
+        
+        <button class="glass-button">Action Button</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .scroll-section {
+    min-width: 100vw;
+    height: 100vh;
+    scroll-snap-align: start;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+  }
+  
+  .section-wrapper-full {
+    max-width: 1200px;
+    width: 100%;
+  }
+  
+  .content-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  
+  .tag {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+  
+  .section-title {
+    font-size: 3rem;
+    font-weight: 600;
+    margin: 0 0 1rem 0;
+  }
+  
+  .section-text {
+    font-size: 1.125rem;
+    line-height: 1.7;
+    opacity: 0.85;
+    margin-bottom: 2rem;
+  }
+  
+  .benefit-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .benefit-list li {
+    font-size: 1.125rem;
+    opacity: 0.9;
+  }
+  
+  .ui-examples {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .ui-card {
+    padding: 2rem;
+    border-radius: 16px;
+  }
+  
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+  }
+  
+  .card-header h3 {
+    margin: 0;
+    font-size: 1.5rem;
+  }
+  
+  .badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+  
+  .ui-navbar {
+    padding: 1rem 2rem;
+    border-radius: 50px;
+  }
+  
+  .nav-items {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+  }
+  
+  .nav-items span {
+    font-weight: 500;
+    cursor: pointer;
+    transition: opacity 0.3s;
+  }
+  
+  .nav-items span:hover {
+    opacity: 0.8;
+  }
+  
+  @media (max-width: 1024px) {
+    .content-split {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+  }
+</style>

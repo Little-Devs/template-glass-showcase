@@ -1,0 +1,202 @@
+---
+// Try it out: In App UI
+---
+
+<section class="scroll-section gradient-radial-purple" data-section="in-app-ui">
+  <div class="section-wrapper-full">
+    <div class="app-mockup">
+      <div class="mockup-header glass">
+        <div class="header-left">
+          <span class="logo">🎨</span>
+          <span class="app-name">Glass App</span>
+        </div>
+        <div class="header-actions">
+          <button class="icon-btn glass">⚙️</button>
+          <button class="icon-btn glass">👤</button>
+        </div>
+      </div>
+      
+      <div class="mockup-body">
+        <div class="sidebar glass-panel">
+          <nav class="nav-menu">
+            <a href="#" class="nav-item glass active">Dashboard</a>
+            <a href="#" class="nav-item glass">Projects</a>
+            <a href="#" class="nav-item glass">Messages</a>
+            <a href="#" class="nav-item glass">Settings</a>
+          </nav>
+        </div>
+        
+        <div class="main-content">
+          <div class="content-card glass-card">
+            <h3>In-App Glass UI</h3>
+            <p>Glass effects work beautifully in application interfaces, providing clear hierarchy while maintaining visual interest.</p>
+          </div>
+          
+          <div class="stats-grid">
+            <div class="stat-card glass-card">
+              <span class="stat-value">2.4k</span>
+              <span class="stat-label">Users</span>
+            </div>
+            <div class="stat-card glass-card">
+              <span class="stat-value">847</span>
+              <span class="stat-label">Projects</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .scroll-section {
+    min-width: 100vw;
+    min-height: 100vh;
+    height: auto;
+    scroll-snap-align: start;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 2rem;
+  }
+  
+  .section-wrapper-full {
+    max-width: 1100px;
+    width: 100%;
+  }
+  
+  .app-mockup {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 24px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .mockup-header {
+    padding: 1.5rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .logo {
+    font-size: 1.5rem;
+  }
+  
+  .app-name {
+    font-weight: 600;
+    font-size: 1.125rem;
+  }
+  
+  .header-actions {
+    display: flex;
+    gap: 0.5rem;
+  }
+  
+  .icon-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    transition: transform 0.2s;
+  }
+  
+  .icon-btn:hover {
+    transform: scale(1.1);
+  }
+  
+  .mockup-body {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    gap: 2rem;
+    padding: 2rem;
+    min-height: 400px;
+  }
+  
+  .sidebar {
+    padding: 1.5rem;
+    border-radius: 16px;
+  }
+  
+  .nav-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .nav-item {
+    padding: 0.875rem 1.25rem;
+    border-radius: 10px;
+    transition: all 0.3s;
+    font-weight: 500;
+  }
+  
+  .nav-item.active {
+    background: rgba(255, 255, 255, 0.2);
+  }
+  
+  .nav-item:hover {
+    transform: translateX(4px);
+  }
+  
+  .main-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .content-card {
+    padding: 2rem;
+    border-radius: 16px;
+  }
+  
+  .content-card h3 {
+    margin: 0 0 0.75rem 0;
+    font-size: 1.5rem;
+  }
+  
+  .content-card p {
+    margin: 0;
+    opacity: 0.85;
+    line-height: 1.6;
+  }
+  
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+  
+  .stat-card {
+    padding: 1.5rem;
+    border-radius: 16px;
+    text-align: center;
+  }
+  
+  .stat-value {
+    display: block;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+  }
+  
+  .stat-label {
+    font-size: 0.875rem;
+    opacity: 0.7;
+  }
+  
+  @media (max-width: 1024px) {
+    .mockup-body {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,185 @@
+---
+// Glass Effect Resources - Based on extracted Figma design
+---
+
+<section class="scroll-section gradient-radial-purple" data-section="glass-resources">
+  <div class="section-content">
+    <div class="content-area">
+      <h1 class="resource-title">Glass effect resources</h1>
+      <p class="resource-description">
+        Links and resources to learn more about Figma's glass effect.
+      </p>
+      <button class="glass-button">
+        Continue
+        <span>→</span>
+      </button>
+    </div>
+    
+    <div class="magnifying-glass">
+      <div class="text-layers">
+        <p class="text-layer" style="font-family: var(--font-serif);">Resources</p>
+        <p class="text-layer" style="font-family: 'SF Pro', sans-serif; top: 100px;">Resources</p>
+        <p class="text-layer" style="font-family: var(--font-mono); font-size: 4rem; top: 190px;">Resources</p>
+      </div>
+      
+      <div class="glass-container">
+        <div class="magnifier">
+          <div class="glass-lens"></div>
+          <div class="handle"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .scroll-section {
+    min-width: 100vw;
+    height: 100vh;
+    scroll-snap-align: start;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    overflow: hidden;
+  }
+  
+  .section-content {
+    max-width: 1280px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4rem;
+    position: relative;
+  }
+  
+  .content-area {
+    flex: 0 0 450px;
+    z-index: 2;
+  }
+  
+  .resource-title {
+    font-size: 4.5rem;
+    font-weight: 500;
+    line-height: 1;
+    margin: 0 0 1.5rem 0;
+  }
+  
+  .resource-description {
+    font-size: 1.5rem;
+    font-weight: 300;
+    line-height: 2;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 2rem;
+  }
+  
+  .magnifying-glass {
+    flex: 1;
+    position: relative;
+    height: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .text-layers {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+  }
+  
+  .text-layer {
+    position: absolute;
+    font-size: 6rem;
+    white-space: nowrap;
+    opacity: 0.4;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
+    pointer-events: none;
+  }
+  
+  .glass-container {
+    position: relative;
+    z-index: 1;
+  }
+  
+  .magnifier {
+    width: 350px;
+    height: 500px;
+    position: relative;
+    transform: rotate(-45deg);
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  .glass-lens {
+    width: 280px;
+    height: 280px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(8px);
+    border: 16px solid rgba(0, 0, 0, 0.8);
+    box-shadow: 
+      inset 6px 5px 14px rgba(255, 255, 255, 0.65),
+      0 20px 60px rgba(0, 0, 0, 0.3);
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .handle {
+    width: 56px;
+    height: 200px;
+    background: linear-gradient(90deg, rgb(65, 65, 65) 0%, rgb(119, 119, 119) 74%, rgb(65, 65, 65) 100%);
+    border-radius: 28px;
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .handle::before {
+    content: '';
+    position: absolute;
+    bottom: -22px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 74px;
+    height: 22px;
+    background: linear-gradient(90deg, rgb(185, 188, 191) 0%, rgb(242, 242, 242) 74%, rgb(185, 188, 191) 100%);
+    border-radius: 44px;
+  }
+  
+  @keyframes float {
+    0%, 100% {
+      transform: rotate(-45deg) translateY(0px);
+    }
+    50% {
+      transform: rotate(-45deg) translateY(-15px);
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .section-content {
+      flex-direction: column;
+      gap: 2rem;
+    }
+    
+    .content-area {
+      flex: none;
+      text-align: center;
+    }
+    
+    .resource-title {
+      font-size: 3rem;
+    }
+    
+    .magnifier {
+      transform: rotate(-45deg) scale(0.7);
+    }
+  }
+</style>

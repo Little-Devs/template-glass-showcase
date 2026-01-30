@@ -1,0 +1,95 @@
+---
+// Tutorial: How to Adjust Glass
+---
+
+<section class="scroll-section gradient-radial-deep" data-section="tutorial-adjust">
+  <div class="tutorial-container">
+    <h2 class="section-title-centered">Adjust Glass Properties</h2>
+    
+    <div class="demo-grid">
+      <div class="demo-item">
+        <div class="glass-demo glass-light">Light</div>
+        <p class="demo-label">backdrop-filter: blur(8px)</p>
+      </div>
+      
+      <div class="demo-item">
+        <div class="glass-demo glass">Medium</div>
+        <p class="demo-label">backdrop-filter: blur(12px)</p>
+      </div>
+      
+      <div class="demo-item">
+        <div class="glass-demo glass-strong">Strong</div>
+        <p class="demo-label">backdrop-filter: blur(20px)</p>
+      </div>
+      
+      <div class="demo-item">
+        <div class="glass-demo glass-dark">Dark</div>
+        <p class="demo-label">background: rgba(0,0,0,0.3)</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .scroll-section {
+    min-width: 100vw;
+    height: 100vh;
+    scroll-snap-align: start;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+  }
+  
+  .tutorial-container {
+    max-width: 900px;
+    width: 100%;
+  }
+  
+  .section-title-centered {
+    font-size: 3rem;
+    font-weight: 600;
+    text-align: center;
+    margin: 0 0 3rem 0;
+  }
+  
+  .demo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+  }
+  
+  .demo-item {
+    text-align: center;
+  }
+  
+  .glass-demo {
+    aspect-ratio: 1;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    transition: transform 0.3s ease;
+  }
+  
+  .glass-demo:hover {
+    transform: scale(1.05);
+  }
+  
+  .demo-label {
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    opacity: 0.8;
+    margin: 0;
+  }
+  
+  @media (max-width: 768px) {
+    .demo-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+  }
+</style>

@@ -1,0 +1,131 @@
+---
+interface Props {
+  totalSections: number;
+}
+
+const { totalSections } = Astro.props;
+---
+
+<!-- Navigation hidden - using mouse wheel, swipe, and keyboard only -->
+<nav class="horizontal-nav" aria-label="Section navigation" style="display: none;">
+  <div class="nav-container">
+    {Array.from({ length: totalSections }, (_, i) => (
+      <button 
+        class={`nav-dot glass-nav-dot ${i === 0 ? 'active' : ''}`}
+        data-section={i}
+        aria-label={`Go to section ${i + 1}`}
+      />
+    ))}
+  </div>
+  
+  <!-- Arrow controls hidden - using mouse wheel and swipe instead -->
+  <div class="arrow-controls" style="display: none;">
+    <button class="arrow-btn glass-button" id="prev-btn" aria-label="Previous section">
+      ←
+    </button>
+    <button class="arrow-btn glass-button" id="next-btn" aria-label="Next section">
+      →
+    </button>
+  </div>
+</nav>
+
+<style>
+  .horizontal-nav {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+  }
+  
+  .nav-container {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem 1.5rem;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    border-radius: 9999px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  
+  .arrow-controls {
+    display: flex;
+    gap: 0.5rem;
+  }
+  
+  .arrow-btn {
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  @media (max-width: 768px) {
+    .horizontal-nav {
+      bottom: 1rem;
+      scale: 0.9;
+    }
+    
+    .nav-container {
+      gap: 0.75rem;
+      padding: 0.75rem 1rem;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const container = document.querySelector('.horizontal-scroll-container');
+    if (!container) return;
+    
+    const sectionWidth = window.innerWidth;
+    
+    // Navigation dots click handler - scroll horizontally
+    document.querySelectorAll('.nav-dot').forEach((dot, index) => {
+      dot.addEventListener('click', () => {
+        container.scrollTo({
+          left: index * sectionWidth,
+          behavior: 'smooth'
+        });
+      });
+    });
+    
+    // Arrow button handlers - scroll horizontally
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+    
+    if (prevBtn && nextBtn) {
+      prevBtn.addEventListener('click', () => {
+        const currentScroll = container.scrollLeft;
+        const currentIndex = Math.round(currentScroll / sectionWidth);
+        
+        if (currentIndex > 0) {
+          container.scrollTo({
+            left: (currentIndex - 1) * sectionWidth,
+            behavior: 'smooth'
+          });
+        }
+      });
+      
+      nextBtn.addEventListener('click', () => {
+        const currentScroll = container.scrollLeft;
+        const currentIndex = Math.round(currentScroll / sectionWidth);
+        const totalSections = document.querySelectorAll('.scroll-section').length;
+        
+        if (currentIndex < totalSections - 1) {
+          container.scrollTo({
+            left: (currentIndex + 1) * sectionWidth,
+            behavior: 'smooth'
+          });
+        }
+      });
+    }
+  });
+</script>

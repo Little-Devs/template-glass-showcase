@@ -1,0 +1,197 @@
+---
+// Footer - Bottom drawer overlay (autohide with hover)
+---
+
+<footer class="app-footer glass" id="app-footer">
+  <div class="footer-container">
+    <div class="footer-left">
+      <div class="footer-logo">
+        <span class="logo-icon">✨</span>
+        <span>Glass Showcase</span>
+      </div>
+      <p class="footer-tagline">Explore the art of glassmorphism</p>
+    </div>
+    
+    <div class="footer-links">
+      <div class="link-group">
+        <h4>Navigation</h4>
+        <a href="#overview">Overview</a>
+        <a href="#tutorials">Tutorials</a>
+        <a href="#inspiration">Inspiration</a>
+      </div>
+      
+      <div class="link-group">
+        <h4>Resources</h4>
+        <a href="#docs">Documentation</a>
+        <a href="#examples">Examples</a>
+        <a href="#community">Community</a>
+      </div>
+      
+      <div class="link-group">
+        <h4>Connect</h4>
+        <a href="#github">GitHub</a>
+        <a href="#twitter">Twitter</a>
+        <a href="#discord">Discord</a>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>&copy; 2026 Glass Showcase. Built with Astro.</p>
+      <div class="footer-social">
+        <a href="#" aria-label="GitHub">🔗</a>
+        <a href="#" aria-label="Twitter">🐦</a>
+        <a href="#" aria-label="Discord">💬</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .app-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 900;
+    padding: 1.5rem 2rem;
+    backdrop-filter: blur(20px);
+    background: rgba(0, 0, 0, 0.8);
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+    pointer-events: none;
+  }
+  
+  .app-footer.show {
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  
+  .footer-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    gap: 2rem;
+    align-items: start;
+  }
+  
+  .footer-left {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.125rem;
+    font-weight: 600;
+  }
+  
+  .logo-icon {
+    font-size: 1.5rem;
+  }
+  
+  .footer-tagline {
+    opacity: 0.7;
+    margin: 0;
+    font-size: 0.875rem;
+  }
+  
+  .footer-links {
+    display: flex;
+    gap: 3rem;
+    justify-content: center;
+  }
+  
+  .link-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .link-group h4 {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 600;
+    opacity: 0.9;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  
+  .link-group a {
+    color: white;
+    text-decoration: none;
+    opacity: 0.7;
+    font-size: 0.875rem;
+    transition: opacity 0.3s;
+  }
+  
+  .link-group a:hover {
+    opacity: 1;
+  }
+  
+  .footer-bottom {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-end;
+  }
+  
+  .footer-bottom p {
+    margin: 0;
+    font-size: 0.75rem;
+    opacity: 0.6;
+  }
+  
+  .footer-social {
+    display: flex;
+    gap: 0.75rem;
+  }
+  
+  .footer-social a {
+    opacity: 0.6;
+    transition: all 0.3s;
+    font-size: 1.125rem;
+  }
+  
+  .footer-social a:hover {
+    opacity: 1;
+    transform: translateY(-2px);
+  }
+  
+  @media (max-width: 1024px) {
+    .footer-container {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    
+    .footer-links {
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+    
+    .footer-bottom {
+      align-items: center;
+      text-align: center;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .app-footer {
+      padding: 1rem;
+    }
+    
+    .footer-links {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+    
+    .link-group {
+      gap: 0.5rem;
+    }
+  }
+</style>

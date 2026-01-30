@@ -1,0 +1,122 @@
+---
+// Introduction Section
+---
+
+<section class="scroll-section gradient-radial-deep" data-section="introduction">
+  <div class="section-wrapper">
+    <div class="intro-content glass-panel">
+      <span class="section-number">01</span>
+      <h2 class="section-title">Introduction to Glass Effects</h2>
+      <p class="intro-text">
+        Glass effect, also known as glassmorphism, is a design trend that creates a frosted glass appearance using backdrop filters and transparency. This technique adds depth and sophistication to modern interfaces.
+      </p>
+      
+      <div class="feature-grid">
+        <div class="feature-item glass">
+          <h3>Backdrop Blur</h3>
+          <p>Creates frosted glass effect</p>
+        </div>
+        <div class="feature-item glass">
+          <h3>Transparency</h3>
+          <p>Lets content shine through</p>
+        </div>
+        <div class="feature-item glass">
+          <h3>Subtle Borders</h3>
+          <p>Defines edges with light</p>
+        </div>
+        <div class="feature-item glass">
+          <h3>Depth & Shadow</h3>
+          <p>Adds dimensional layers</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .scroll-section {
+    min-width: 100vw;
+    min-height: 100vh;
+    height: auto;
+    scroll-snap-align: start;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 2rem;
+  }
+  
+  .section-wrapper {
+    max-width: 900px;
+    width: 100%;
+    padding: 2rem 0;
+  }
+  
+  .intro-content {
+    padding: 3rem;
+  }
+  
+  .section-number {
+    font-size: 1rem;
+    font-weight: 600;
+    opacity: 0.6;
+    display: block;
+    margin-bottom: 1rem;
+    font-family: var(--font-mono);
+  }
+  
+  .section-title {
+    font-size: 3rem;
+    font-weight: 600;
+    margin: 0 0 1.5rem 0;
+    line-height: 1.2;
+  }
+  
+  .intro-text {
+    font-size: 1.25rem;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.85);
+    margin-bottom: 2.5rem;
+  }
+  
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+  
+  .feature-item {
+    padding: 1.5rem;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+  }
+  
+  .feature-item:hover {
+    transform: translateY(-4px);
+  }
+  
+  .feature-item h3 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin: 0 0 0.5rem 0;
+  }
+  
+  .feature-item p {
+    font-size: 0.875rem;
+    opacity: 0.8;
+    margin: 0;
+  }
+  
+  @media (max-width: 768px) {
+    .intro-content {
+      padding: 2rem;
+    }
+    
+    .section-title {
+      font-size: 2rem;
+    }
+    
+    .feature-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

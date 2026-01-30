@@ -1,0 +1,30 @@
+{
+  "name": "template-glass-showcase",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "Horizontal-scrolling glass effect showcase website with 18 sections of glassmorphism examples",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "astro": "^5.0.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.0",
+    "typescript": "^5.0.0"
+  },
+  "keywords": [
+    "astro",
+    "template",
+    "glassmorphism",
+    "horizontal-scroll",
+    "showcase",
+    "landing-page"
+  ],
+  "author": "Little-Devs",
+  "license": "MIT"
+}

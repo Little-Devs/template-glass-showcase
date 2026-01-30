@@ -1,0 +1,181 @@
+---
+// Header - Appears after first section
+---
+
+<header class="app-header glass" id="app-header">
+  <div class="header-container">
+    <div class="header-left">
+      <button class="menu-btn glass" id="menu-toggle" aria-label="Toggle menu">
+        <span class="hamburger"></span>
+      </button>
+      <div class="logo">
+        <span class="logo-icon">✨</span>
+        <span class="logo-text">Glass Showcase</span>
+      </div>
+    </div>
+    
+    <nav class="header-nav">
+      <a href="#overview" class="nav-link">Overview</a>
+      <a href="#tutorials" class="nav-link">Tutorials</a>
+      <a href="#resources" class="nav-link">Resources</a>
+    </nav>
+    
+    <div class="header-right">
+      <button class="glass-button small">Get Started</button>
+    </div>
+  </div>
+</header>
+
+<style>
+  .app-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    padding: 1rem 2rem;
+    backdrop-filter: blur(20px);
+    background: rgba(0, 0, 0, 0.5);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transform: translateY(-100%);
+    transition: transform 0.3s ease;
+    pointer-events: none;
+  }
+  
+  .app-header.visible {
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  
+  .app-header.show {
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  
+  .header-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+  
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .menu-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  
+  .menu-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+  }
+  
+  .hamburger {
+    width: 20px;
+    height: 2px;
+    background: white;
+    position: relative;
+    display: block;
+  }
+  
+  .hamburger::before,
+  .hamburger::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 2px;
+    background: white;
+    left: 0;
+    transition: all 0.3s;
+  }
+  
+  .hamburger::before {
+    top: -6px;
+  }
+  
+  .hamburger::after {
+    bottom: -6px;
+  }
+  
+  .menu-btn.active .hamburger {
+    background: transparent;
+  }
+  
+  .menu-btn.active .hamburger::before {
+    top: 0;
+    transform: rotate(45deg);
+  }
+  
+  .menu-btn.active .hamburger::after {
+    bottom: 0;
+    transform: rotate(-45deg);
+  }
+  
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.125rem;
+    font-weight: 600;
+  }
+  
+  .logo-icon {
+    font-size: 1.5rem;
+  }
+  
+  .header-nav {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+  }
+  
+  .nav-link {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    opacity: 0.8;
+    transition: opacity 0.3s;
+    font-size: 0.938rem;
+  }
+  
+  .nav-link:hover {
+    opacity: 1;
+  }
+  
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .glass-button.small {
+    padding: 0.625rem 1.25rem;
+    font-size: 0.875rem;
+  }
+  
+  @media (max-width: 768px) {
+    .header-nav {
+      display: none;
+    }
+    
+    .app-header {
+      padding: 0.75rem 1rem;
+    }
+    
+    .logo-text {
+      display: none;
+    }
+  }
+</style>

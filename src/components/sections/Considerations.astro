@@ -1,0 +1,142 @@
+---
+// Considerations Section
+---
+
+<section class="scroll-section gradient-radial-deep" data-section="considerations">
+  <div class="section-wrapper">
+    <div class="considerations-content glass-panel">
+      <h2 class="section-title">Considerations</h2>
+      <p class="subtitle">Keep these in mind when using glass effects</p>
+      
+      <div class="consideration-list">
+        <div class="consideration-item">
+          <span class="icon">⚡</span>
+          <div class="item-content">
+            <h3>Performance</h3>
+            <p>Backdrop filters can be resource-intensive. Use sparingly on mobile devices.</p>
+          </div>
+        </div>
+        
+        <div class="consideration-item">
+          <span class="icon">♿</span>
+          <div class="item-content">
+            <h3>Accessibility</h3>
+            <p>Ensure sufficient contrast between text and blurred backgrounds for readability.</p>
+          </div>
+        </div>
+        
+        <div class="consideration-item">
+          <span class="icon">🌐</span>
+          <div class="item-content">
+            <h3>Browser Support</h3>
+            <p>Check for backdrop-filter support and provide fallbacks for older browsers.</p>
+          </div>
+        </div>
+        
+        <div class="consideration-item">
+          <span class="icon">🎨</span>
+          <div class="item-content">
+            <h3>Visual Hierarchy</h3>
+            <p>Don't overuse glass effects - they work best as accent elements.</p>
+          </div>
+        </div>
+        
+        <div class="consideration-item">
+          <span class="icon">📱</span>
+          <div class="item-content">
+            <h3>Responsive Design</h3>
+            <p>Test glass effects across different screen sizes and backgrounds.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .scroll-section {
+    min-width: 100vw;
+    min-height: 100vh;
+    height: auto;
+    scroll-snap-align: start;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 2rem;
+  }
+  
+  .section-wrapper {
+    max-width: 900px;
+    width: 100%;
+  }
+  
+  .considerations-content {
+    padding: 3rem;
+  }
+  
+  .section-title {
+    font-size: 3rem;
+    font-weight: 600;
+    margin: 0 0 0.5rem 0;
+  }
+  
+  .subtitle {
+    font-size: 1.125rem;
+    opacity: 0.8;
+    margin: 0 0 2.5rem 0;
+  }
+  
+  .consideration-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .consideration-item {
+    display: flex;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    transition: background 0.3s;
+  }
+  
+  .consideration-item:hover {
+    background: rgba(255, 255, 255, 0.08);
+  }
+  
+  .icon {
+    flex-shrink: 0;
+    font-size: 2rem;
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+  }
+  
+  .item-content h3 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+  
+  .item-content p {
+    margin: 0;
+    opacity: 0.85;
+    line-height: 1.6;
+  }
+  
+  @media (max-width: 768px) {
+    .considerations-content {
+      padding: 2rem;
+    }
+    
+    .consideration-item {
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+</style>

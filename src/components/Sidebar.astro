@@ -1,0 +1,211 @@
+---
+// Sidebar - Disappearing overlay
+---
+
+<aside class="app-sidebar glass" id="app-sidebar">
+  <div class="sidebar-header">
+    <h3>Navigation</h3>
+    <button class="close-btn" id="sidebar-close" aria-label="Close sidebar">
+      ✕
+    </button>
+  </div>
+  
+  <nav class="sidebar-nav">
+    <div class="nav-section">
+      <h4>Getting Started</h4>
+      <a href="#overview" class="sidebar-link">
+        <span class="link-icon">🏠</span>
+        <span>Overview</span>
+      </a>
+      <a href="#contents" class="sidebar-link">
+        <span class="link-icon">📋</span>
+        <span>Contents</span>
+      </a>
+      <a href="#introduction" class="sidebar-link">
+        <span class="link-icon">📖</span>
+        <span>Introduction</span>
+      </a>
+    </div>
+    
+    <div class="nav-section">
+      <h4>Tutorials</h4>
+      <a href="#glass-ui" class="sidebar-link">
+        <span class="link-icon">🎨</span>
+        <span>Glass for UI</span>
+      </a>
+      <a href="#tutorial-add" class="sidebar-link">
+        <span class="link-icon">➕</span>
+        <span>How to Add</span>
+      </a>
+      <a href="#tutorial-adjust" class="sidebar-link">
+        <span class="link-icon">⚙️</span>
+        <span>How to Adjust</span>
+      </a>
+    </div>
+    
+    <div class="nav-section">
+      <h4>Examples</h4>
+      <a href="#in-app-ui" class="sidebar-link">
+        <span class="link-icon">📱</span>
+        <span>In-App UI</span>
+      </a>
+      <a href="#inspiration" class="sidebar-link">
+        <span class="link-icon">💡</span>
+        <span>Inspiration</span>
+      </a>
+    </div>
+    
+    <div class="nav-section">
+      <h4>Resources</h4>
+      <a href="#considerations" class="sidebar-link">
+        <span class="link-icon">⚠️</span>
+        <span>Considerations</span>
+      </a>
+      <a href="#resources" class="sidebar-link">
+        <span class="link-icon">📚</span>
+        <span>Resources</span>
+      </a>
+    </div>
+  </nav>
+  
+  <div class="sidebar-footer">
+    <button class="glass-button small">Download Template</button>
+  </div>
+</aside>
+
+<div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+<style>
+  .app-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 320px;
+    z-index: 1100;
+    backdrop-filter: blur(20px);
+    background: rgba(0, 0, 0, 0.7);
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    pointer-events: none;
+  }
+  
+  .app-sidebar.open {
+    transform: translateX(0);
+    pointer-events: auto;
+  }
+  
+  .app-sidebar.show {
+    transform: translateX(0);
+    pointer-events: auto;
+  }
+  
+  .sidebar-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1050;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+  }
+  
+  .sidebar-overlay.visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  
+  .sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .sidebar-header h3 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+  
+  .close-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: white;
+    font-size: 1.25rem;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  .close-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+  
+  .sidebar-nav {
+    flex: 1;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .nav-section h4 {
+    margin: 0 0 0.75rem 0;
+    font-size: 0.75rem;
+    font-weight: 600;
+    opacity: 0.6;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 0 0.75rem;
+  }
+  
+  .sidebar-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    border-radius: 8px;
+    color: white;
+    text-decoration: none;
+    transition: all 0.3s;
+    opacity: 0.8;
+  }
+  
+  .sidebar-link:hover {
+    background: rgba(255, 255, 255, 0.1);
+    opacity: 1;
+  }
+  
+  .link-icon {
+    font-size: 1.25rem;
+    width: 24px;
+    text-align: center;
+  }
+  
+  .sidebar-footer {
+    padding: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .sidebar-footer .glass-button {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  @media (max-width: 768px) {
+    .app-sidebar {
+      width: 280px;
+    }
+  }
+</style>

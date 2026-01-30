@@ -1,0 +1,165 @@
+---
+// Finale Section - Thank You
+---
+
+<section class="scroll-section gradient-radial-deep" data-section="finale">
+  <div class="finale-content">
+    <div class="finale-card glass-panel">
+      <div class="sparkle">✨</div>
+      <h1 class="finale-title">You've Reached the End!</h1>
+      <p class="finale-text">
+        Thanks for exploring this glass effect showcase. Now go create something amazing with glassmorphism!
+      </p>
+      
+      <div class="action-buttons">
+        <button class="glass-button" onclick="window.scrollTo({left: 0, behavior: 'smooth'})">
+          ← Start Over
+        </button>
+        <button class="glass-button primary">
+          Explore More Templates
+        </button>
+      </div>
+      
+      <div class="stats">
+        <div class="stat">
+          <span class="stat-number">18</span>
+          <span class="stat-label">Sections</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">∞</span>
+          <span class="stat-label">Possibilities</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">100%</span>
+          <span class="stat-label">Glass</span>
+        </div>
+      </div>
+      
+      <p class="credits">
+        Built with Astro • Designed with Figma • Made with ❤️
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .scroll-section {
+    min-width: 100vw;
+    height: 100vh;
+    scroll-snap-align: start;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+  }
+  
+  .finale-content {
+    max-width: 800px;
+    width: 100%;
+  }
+  
+  .finale-card {
+    padding: 4rem 3rem;
+    text-align: center;
+  }
+  
+  .sparkle {
+    font-size: 4rem;
+    margin-bottom: 1.5rem;
+    animation: sparkle 2s ease-in-out infinite;
+  }
+  
+  .finale-title {
+    font-size: 3rem;
+    font-weight: 700;
+    margin: 0 0 1.5rem 0;
+    background: linear-gradient(135deg, #ffffff, #b0b0ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .finale-text {
+    font-size: 1.25rem;
+    line-height: 1.7;
+    opacity: 0.9;
+    margin: 0 0 2.5rem 0;
+  }
+  
+  .action-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+  }
+  
+  .glass-button.primary {
+    background: rgba(255, 255, 255, 0.25);
+  }
+  
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-bottom: 2.5rem;
+    padding: 2rem 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .stat {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .stat-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1;
+  }
+  
+  .stat-label {
+    font-size: 0.875rem;
+    opacity: 0.7;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  
+  .credits {
+    font-size: 0.938rem;
+    opacity: 0.7;
+    margin: 0;
+  }
+  
+  @keyframes sparkle {
+    0%, 100% {
+      transform: scale(1) rotate(0deg);
+    }
+    25% {
+      transform: scale(1.1) rotate(-10deg);
+    }
+    75% {
+      transform: scale(1.1) rotate(10deg);
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .finale-card {
+      padding: 3rem 2rem;
+    }
+    
+    .finale-title {
+      font-size: 2rem;
+    }
+    
+    .action-buttons {
+      flex-direction: column;
+    }
+    
+    .stats {
+      gap: 1.5rem;
+    }
+  }
+</style>

@@ -1,0 +1,123 @@
+---
+// Glass and Blend Modes over Videos
+---
+
+<section class="scroll-section gradient-radial-deep" data-section="video-blends">
+  <div class="section-wrapper">
+    <div class="video-demo-content">
+      <h2 class="section-title">Glass over Videos</h2>
+      <p class="section-text">
+        Combine glass effects with blend modes to create stunning overlays on video content.
+      </p>
+      
+      <div class="video-container">
+        <div class="video-placeholder gradient-radial-purple"></div>
+        <div class="glass-overlay frosted-glass">
+          <h3>Video Title</h3>
+          <p>Glass overlay with blend modes creates depth</p>
+          <button class="glass-button">Play</button>
+        </div>
+      </div>
+      
+      <div class="blend-modes">
+        <span class="mode-tag glass">Normal</span>
+        <span class="mode-tag glass">Multiply</span>
+        <span class="mode-tag glass">Screen</span>
+        <span class="mode-tag glass">Overlay</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .scroll-section {
+    min-width: 100vw;
+    height: 100vh;
+    scroll-snap-align: start;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+  }
+  
+  .section-wrapper {
+    max-width: 900px;
+    width: 100%;
+  }
+  
+  .video-demo-content {
+    text-align: center;
+  }
+  
+  .section-title {
+    font-size: 3rem;
+    font-weight: 600;
+    margin: 0 0 1rem 0;
+  }
+  
+  .section-text {
+    font-size: 1.25rem;
+    opacity: 0.85;
+    margin-bottom: 2rem;
+  }
+  
+  .video-container {
+    position: relative;
+    aspect-ratio: 16/9;
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 2rem;
+  }
+  
+  .video-placeholder {
+    width: 100%;
+    height: 100%;
+    animation: pulse 3s ease-in-out infinite;
+  }
+  
+  .glass-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 2rem;
+  }
+  
+  .glass-overlay h3 {
+    margin: 0;
+    font-size: 2rem;
+    font-weight: 600;
+  }
+  
+  .glass-overlay p {
+    margin: 0;
+    opacity: 0.9;
+  }
+  
+  .blend-modes {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .mode-tag {
+    padding: 0.75rem 1.5rem;
+    border-radius: 20px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  
+  .mode-tag:hover {
+    transform: translateY(-2px);
+  }
+  
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+  }
+</style>

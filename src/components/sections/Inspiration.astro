@@ -1,0 +1,113 @@
+---
+// Inspiration Section
+---
+
+<section class="scroll-section gradient-radial-purple" data-section="inspiration">
+  <div class="section-wrapper-full">
+    <h2 class="section-title-centered">Glass Design Inspiration</h2>
+    
+    <div class="inspiration-grid">
+      <div class="inspo-card glass-card">
+        <div class="card-image gradient-radial-deep"></div>
+        <div class="card-content">
+          <h3>Hero Sections</h3>
+          <p>Eye-catching landing page headers with glass elements</p>
+        </div>
+      </div>
+      
+      <div class="inspo-card glass-card">
+        <div class="card-image gradient-radial-purple"></div>
+        <div class="card-content">
+          <h3>Dashboard Cards</h3>
+          <p>Clean data visualization with glass containers</p>
+        </div>
+      </div>
+      
+      <div class="inspo-card glass-card">
+        <div class="card-image gradient-radial-deep"></div>
+        <div class="card-content">
+          <h3>Modal Dialogs</h3>
+          <p>Elegant overlays that don't hide context</p>
+        </div>
+      </div>
+      
+      <div class="inspo-card glass-card">
+        <div class="card-image gradient-radial-purple"></div>
+        <div class="card-content">
+          <h3>Navigation Bars</h3>
+          <p>Floating nav menus with subtle glass effect</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .scroll-section {
+    min-width: 100vw;
+    height: 100vh;
+    scroll-snap-align: start;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+  }
+  
+  .section-wrapper-full {
+    max-width: 1200px;
+    width: 100%;
+  }
+  
+  .section-title-centered {
+    font-size: 3rem;
+    font-weight: 600;
+    text-align: center;
+    margin: 0 0 3rem 0;
+  }
+  
+  .inspiration-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+  }
+  
+  .inspo-card {
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+  
+  .inspo-card:hover {
+    transform: translateY(-8px);
+  }
+  
+  .card-image {
+    aspect-ratio: 16/10;
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .card-content {
+    padding: 1.5rem;
+  }
+  
+  .card-content h3 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+  
+  .card-content p {
+    margin: 0;
+    opacity: 0.8;
+    font-size: 0.938rem;
+    line-height: 1.5;
+  }
+  
+  @media (max-width: 768px) {
+    .inspiration-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

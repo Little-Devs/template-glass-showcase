@@ -1,0 +1,108 @@
+{
+  "id": "glass-showcase",
+  "name": "Glass Showcase",
+  "version": "1.0.0",
+  "description": "Horizontal-scrolling glass effect showcase with 18 sections demonstrating glassmorphism techniques and best practices",
+  "category": "landing-page",
+  "subcategory": "showcase",
+  "techStack": {
+    "framework": "Astro",
+    "version": "5.0.0",
+    "styling": "CSS",
+    "scripting": "JavaScript"
+  },
+  "features": [
+    "Horizontal scroll navigation with smooth snap",
+    "18 interactive glassmorphism sections",
+    "Keyboard arrow key navigation",
+    "Touch and trackpad gesture support",
+    "Navigation dots with active states",
+    "Responsive design (vertical scroll on mobile)",
+    "Extracted from Figma Glass playground design",
+    "Multiple glass effect variations",
+    "Tutorial and inspiration sections",
+    "Performance optimized animations",
+    "Accessibility-friendly focus states",
+    "Cross-browser compatible"
+  ],
+  "aesthetic": {
+    "style": "Glassmorphism",
+    "description": "Modern frosted glass effects with backdrop blur, transparency, and depth",
+    "fonts": {
+      "display": "Inter",
+      "sans": "Inter",
+      "mono": "DM Mono",
+      "serif": "Instrument Serif"
+    },
+    "colors": {
+      "primary": "#271255",
+      "primaryName": "Deep Purple",
+      "secondary": "#201337",
+      "secondaryName": "Dark Purple",
+      "accent": "#ffffff",
+      "accentName": "White",
+      "background": "#19141a",
+      "backgroundName": "Dark"
+    }
+  },
+  "sections": [
+    "Glass Effect Overview",
+    "Table of Contents",
+    "Introduction",
+    "Settings Configuration",
+    "Glass for UI",
+    "Tutorial: Add Glass",
+    "Tutorial: Adjust Glass",
+    "In-App UI Examples",
+    "Video Blend Modes",
+    "Prototyping with Glass",
+    "Have Fun with Glass",
+    "Inspiration Gallery",
+    "Effect Variations",
+    "Considerations",
+    "Know Before You Go",
+    "Glass Resources Hero",
+    "Resource Cards",
+    "Finale"
+  ],
+  "useCases": [
+    "Portfolio showcase websites",
+    "Design system documentation",
+    "Interactive presentations",
+    "Product feature showcases",
+    "Educational tutorials",
+    "Design inspiration galleries",
+    "Modern landing pages",
+    "Creative agency sites"
+  ],
+  "customization": {
+    "difficulty": "easy",
+    "colorScheme": "CSS variables in global.css",
+    "typography": "Google Fonts (Inter, DM Mono, Instrument Serif)",
+    "layout": "CSS Flexbox with scroll-snap",
+    "glassmorphism": "Dedicated glassmorphism.css with multiple variations"
+  },
+  "performance": {
+    "framework": "Astro (SSG)",
+    "rendering": "Static Site Generation",
+    "animations": "CSS-based with GPU acceleration",
+    "lighthouse": "90+",
+    "mobileOptimized": true
+  },
+  "author": "Little-Devs",
+  "license": "MIT",
+  "createdAt": "2026-01-30",
+  "lastUpdated": "2026-01-30",
+  "tags": [
+    "glassmorphism",
+    "horizontal-scroll",
+    "showcase",
+    "interactive",
+    "astro",
+    "css",
+    "tutorial",
+    "figma",
+    "modern",
+    "responsive"
+  ]
+}

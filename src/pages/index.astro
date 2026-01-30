@@ -1,0 +1,109 @@
+---
+import HorizontalLayout from '../layouts/HorizontalLayout.astro';
+import HorizontalNav from '../components/HorizontalNav.astro';
+
+// Import all 18 sections
+import GlassOverview from '../components/sections/GlassOverview.astro';
+import Contents from '../components/sections/Contents.astro';
+import Introduction from '../components/sections/Introduction.astro';
+import Settings from '../components/sections/Settings.astro';
+import GlassForUI from '../components/sections/GlassForUI.astro';
+import TutorialAdd from '../components/sections/TutorialAdd.astro';
+import TutorialAdjust from '../components/sections/TutorialAdjust.astro';
+import InAppUI from '../components/sections/InAppUI.astro';
+import VideoBlends from '../components/sections/VideoBlends.astro';
+import Prototyping from '../components/sections/Prototyping.astro';
+import HaveFun from '../components/sections/HaveFun.astro';
+import Inspiration from '../components/sections/Inspiration.astro';
+import GlassEffects from '../components/sections/GlassEffects.astro';
+import Considerations from '../components/sections/Considerations.astro';
+import KnowBeforeYouGo from '../components/sections/KnowBeforeYouGo.astro';
+import GlassResources from '../components/sections/GlassResources.astro';
+import ResourceCards from '../components/sections/ResourceCards.astro';
+import Finale from '../components/sections/Finale.astro';
+
+const totalSections = 18;
+---
+
+<HorizontalLayout title="Glass Showcase - Horizontal Scrolling Experience" showFooter={true}>
+  <main class="horizontal-scroll-container">
+    <!-- Row 1: Hero & Navigation -->
+    <GlassOverview />
+    <Contents />
+    <Introduction />
+    <Settings />
+    
+    <!-- Row 2: Tutorial Basics -->
+    <GlassForUI />
+    <TutorialAdd />
+    <TutorialAdjust />
+    
+    <!-- Row 3: Advanced Techniques -->
+    <InAppUI />
+    <VideoBlends />
+    <Prototyping />
+    
+    <!-- Row 4: Creative & Inspiration -->
+    <HaveFun />
+    <Inspiration />
+    <GlassEffects />
+    
+    <!-- Row 5: Best Practices -->
+    <Considerations />
+    <KnowBeforeYouGo />
+    
+    <!-- Row 6: Resources & Finale -->
+    <GlassResources />
+    <ResourceCards />
+    <Finale />
+  </main>
+  
+  <!-- Navigation dots hidden per user request -->
+  <!-- <HorizontalNav totalSections={totalSections} /> -->
+</HorizontalLayout>
+
+<style>
+  main {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  /* Ensure sections are properly sized for horizontal scroll with overflow */
+  :global(.scroll-section) {
+    min-width: 100vw;
+    width: 100vw;
+    min-height: 100vh;
+    height: auto;
+    max-height: 100vh;
+    scroll-snap-align: start;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: relative;
+  }
+  
+  /* Allow section content to overflow */
+  :global(.scroll-section > *) {
+    max-height: none;
+  }
+  
+  /* Hide scrollbars */
+  main {
+    scrollbar-width: none;
+  }
+  
+  /* Mobile: stack vertically */
+  @media (max-width: 768px) {
+    main {
+      flex-direction: column;
+    }
+    
+    :global(.scroll-section) {
+      min-height: 100vh;
+      height: auto;
+    }
+  }
+</style>

@@ -1,0 +1,152 @@
+---
+// Contents / Table of Contents Section
+---
+
+<section class="scroll-section gradient-radial-deep" data-section="contents">
+  <div class="section-content-centered">
+    <div class="contents-panel glass-panel">
+      <h2 class="section-title">Table of Contents</h2>
+      
+      <nav class="contents-menu">
+        <a href="#" class="menu-item glass-card">
+          <span class="arrow">→</span>
+          <span>Introduction & Settings</span>
+        </a>
+        <a href="#" class="menu-item glass-card">
+          <span class="arrow">→</span>
+          <span>Glass for UI</span>
+        </a>
+        <a href="#" class="menu-item glass-card">
+          <span class="arrow">→</span>
+          <span>Glass in Prototyping</span>
+        </a>
+        <a href="#" class="menu-item glass-card">
+          <span class="arrow">→</span>
+          <span>Glass for Fun</span>
+        </a>
+        <a href="#" class="menu-item glass-card">
+          <span class="arrow">→</span>
+          <span>Considerations</span>
+        </a>
+        <a href="#" class="menu-item glass-card">
+          <span class="arrow">→</span>
+          <span>Glass Resources</span>
+        </a>
+      </nav>
+      
+      <div class="navigation-hint glass">
+        <p class="hint-text">Use arrow keys or scroll to navigate</p>
+        <div class="hint-keys">
+          <kbd class="glass">←</kbd>
+          <kbd class="glass">→</kbd>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .scroll-section {
+    min-width: 100vw;
+    min-height: 100vh;
+    height: auto;
+    scroll-snap-align: start;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 2rem;
+  }
+  
+  .section-content-centered {
+    max-width: 800px;
+    width: 100%;
+    padding: 2rem 0;
+  }
+  
+  .contents-panel {
+    padding: 3rem;
+  }
+  
+  .section-title {
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin: 0 0 2rem 0;
+    text-align: center;
+  }
+  
+  .contents-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .menu-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.25rem 1.5rem;
+    border-radius: 12px;
+    font-size: 1.125rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+  
+  .menu-item:hover {
+    transform: translateX(8px);
+  }
+  
+  .arrow {
+    font-size: 1.5rem;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+  }
+  
+  .menu-item:hover .arrow {
+    opacity: 1;
+  }
+  
+  .navigation-hint {
+    padding: 1.5rem;
+    border-radius: 16px;
+    text-align: center;
+  }
+  
+  .hint-text {
+    margin: 0 0 1rem 0;
+    opacity: 0.8;
+    font-size: 1rem;
+  }
+  
+  .hint-keys {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+  }
+  
+  kbd {
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-family: var(--font-mono);
+    font-size: 1.25rem;
+    min-width: 48px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  @media (max-width: 768px) {
+    .contents-panel {
+      padding: 2rem;
+    }
+    
+    .section-title {
+      font-size: 2rem;
+    }
+    
+    .menu-item {
+      padding: 1rem;
+      font-size: 1rem;
+    }
+  }
+</style>

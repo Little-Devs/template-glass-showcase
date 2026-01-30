@@ -1,0 +1,151 @@
+---
+// Know Before You Go Section
+---
+
+<section class="scroll-section gradient-radial-purple" data-section="know-before">
+  <div class="section-wrapper-full">
+    <div class="know-content">
+      <div class="title-area">
+        <h2 class="section-title">Know Before You Go!</h2>
+        <p class="intro-text">Essential tips for successful glass effect implementation</p>
+      </div>
+      
+      <div class="tips-grid">
+        <div class="tip-column glass-panel">
+          <span class="tip-number">01</span>
+          <h3>Layer Your Elements</h3>
+          <ul>
+            <li>Place glass effects over colorful backgrounds</li>
+            <li>Use multiple layers for depth</li>
+            <li>Test with various content types</li>
+          </ul>
+        </div>
+        
+        <div class="tip-column glass-panel">
+          <span class="tip-number">02</span>
+          <h3>Balance is Key</h3>
+          <ul>
+            <li>Don't make everything glass</li>
+            <li>Mix with solid elements</li>
+            <li>Create visual hierarchy</li>
+          </ul>
+        </div>
+        
+        <div class="tip-column glass-panel">
+          <span class="tip-number">03</span>
+          <h3>Test Performance</h3>
+          <ul>
+            <li>Monitor frame rates</li>
+            <li>Test on mobile devices</li>
+            <li>Optimize blur amounts</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="cta-area">
+        <button class="glass-button large">Ready to Create</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .scroll-section {
+    min-width: 100vw;
+    min-height: 100vh;
+    height: auto;
+    scroll-snap-align: start;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 2rem;
+  }
+  
+  .section-wrapper-full {
+    max-width: 1200px;
+    width: 100%;
+  }
+  
+  .title-area {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  
+  .section-title {
+    font-size: 3.5rem;
+    font-weight: 600;
+    margin: 0 0 1rem 0;
+  }
+  
+  .intro-text {
+    font-size: 1.25rem;
+    opacity: 0.85;
+    margin: 0;
+  }
+  
+  .tips-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+  
+  .tip-column {
+    padding: 2rem;
+    border-radius: 16px;
+  }
+  
+  .tip-number {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    font-weight: 600;
+    opacity: 0.6;
+    margin-bottom: 1rem;
+  }
+  
+  .tip-column h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0 0 1.5rem 0;
+  }
+  
+  .tip-column ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .tip-column li {
+    padding-left: 1.5rem;
+    position: relative;
+    opacity: 0.9;
+    line-height: 1.5;
+  }
+  
+  .tip-column li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    opacity: 0.6;
+  }
+  
+  .cta-area {
+    text-align: center;
+  }
+  
+  .glass-button.large {
+    padding: 1.25rem 3rem;
+    font-size: 1.25rem;
+  }
+  
+  @media (max-width: 1024px) {
+    .tips-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+  }
+</style>

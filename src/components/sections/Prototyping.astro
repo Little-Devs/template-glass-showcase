@@ -1,0 +1,147 @@
+---
+// Prototyping with Glass and Smart Animate
+---
+
+<section class="scroll-section gradient-radial-purple" data-section="prototyping">
+  <div class="section-wrapper-full">
+    <div class="proto-content">
+      <div class="text-side">
+        <span class="tag glass">Prototyping</span>
+        <h2 class="section-title">Smart Animate with Glass</h2>
+        <p class="description">
+          Glass effects work beautifully with prototyping animations. Create smooth transitions that maintain the glass aesthetic throughout interactions.
+        </p>
+        
+        <div class="tips glass-panel">
+          <h4>Pro Tips:</h4>
+          <ul>
+            <li>Keep blur values consistent</li>
+            <li>Animate opacity for smooth fades</li>
+            <li>Use easing for natural motion</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="animation-demo">
+        <div class="state-card glass-card state-1">
+          <div class="icon">✨</div>
+          <h3>State 1</h3>
+          <p>Initial glass state</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .scroll-section {
+    min-width: 100vw;
+    height: 100vh;
+    scroll-snap-align: start;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+  }
+  
+  .section-wrapper-full {
+    max-width: 1200px;
+    width: 100%;
+  }
+  
+  .proto-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  
+  .text-side .tag {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+  
+  .section-title {
+    font-size: 3rem;
+    font-weight: 600;
+    margin: 0 0 1rem 0;
+  }
+  
+  .description {
+    font-size: 1.125rem;
+    line-height: 1.7;
+    opacity: 0.85;
+    margin-bottom: 2rem;
+  }
+  
+  .tips {
+    padding: 1.5rem;
+    border-radius: 12px;
+  }
+  
+  .tips h4 {
+    margin: 0 0 1rem 0;
+    font-size: 1.125rem;
+  }
+  
+  .tips ul {
+    margin: 0;
+    padding-left: 1.5rem;
+    list-style: disc;
+  }
+  
+  .tips li {
+    margin-bottom: 0.5rem;
+    opacity: 0.9;
+  }
+  
+  .animation-demo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .state-card {
+    padding: 3rem 2rem;
+    border-radius: 24px;
+    text-align: center;
+    animation: morphState 4s ease-in-out infinite;
+  }
+  
+  .icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+  }
+  
+  .state-card h3 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.5rem;
+  }
+  
+  .state-card p {
+    margin: 0;
+    opacity: 0.8;
+  }
+  
+  @keyframes morphState {
+    0%, 100% {
+      transform: scale(1) rotate(0deg);
+      border-radius: 24px;
+    }
+    50% {
+      transform: scale(1.1) rotate(2deg);
+      border-radius: 40px;
+    }
+  }
+  
+  @media (max-width: 1024px) {
+    .proto-content {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+  }
+</style>

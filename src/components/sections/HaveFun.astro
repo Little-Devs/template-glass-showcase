@@ -1,0 +1,111 @@
+---
+// Have Fun with Glass
+---
+
+<section class="scroll-section gradient-radial-deep" data-section="have-fun">
+  <div class="section-wrapper">
+    <div class="fun-content">
+      <h2 class="big-title">Have Fun<br/>with Glass</h2>
+      
+      <div class="interactive-demos">
+        <div class="fun-card glass-shimmer">
+          <span class="emoji">🎨</span>
+          <h3>Shimmer Effect</h3>
+        </div>
+        
+        <div class="fun-card glass-highlight">
+          <span class="emoji">✨</span>
+          <h3>Highlight Glass</h3>
+        </div>
+        
+        <div class="fun-card frosted-glass">
+          <span class="emoji">❄️</span>
+          <h3>Frosted Glass</h3>
+        </div>
+        
+        <div class="fun-card glass-inset">
+          <span class="emoji">💎</span>
+          <h3>Inset Shadow</h3>
+        </div>
+      </div>
+      
+      <p class="tagline">Experiment with different glass variations!</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .scroll-section {
+    min-width: 100vw;
+    height: 100vh;
+    scroll-snap-align: start;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+  }
+  
+  .section-wrapper {
+    max-width: 1000px;
+    width: 100%;
+    text-align: center;
+  }
+  
+  .big-title {
+    font-size: clamp(3rem, 8vw, 5rem);
+    font-weight: 700;
+    line-height: 1.1;
+    margin: 0 0 3rem 0;
+    background: linear-gradient(135deg, #ffffff, #a0a0ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .interactive-demos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  .fun-card {
+    aspect-ratio: 1;
+    padding: 2rem;
+    border-radius: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .fun-card:hover {
+    transform: translateY(-8px) scale(1.05);
+  }
+  
+  .emoji {
+    font-size: 3rem;
+  }
+  
+  .fun-card h3 {
+    margin: 0;
+    font-size: 1.125rem;
+    font-weight: 600;
+  }
+  
+  .tagline {
+    font-size: 1.5rem;
+    opacity: 0.8;
+    margin: 0;
+    font-style: italic;
+  }
+  
+  @media (max-width: 768px) {
+    .interactive-demos {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>

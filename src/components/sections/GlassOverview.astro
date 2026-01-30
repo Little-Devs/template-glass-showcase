@@ -1,0 +1,136 @@
+---
+// Glass Effect Overview - Hero Section
+---
+
+<section class="scroll-section gradient-radial-purple" data-section="glass-overview">
+  <div class="section-content">
+    <div class="content-left">
+      <h1 class="hero-title">Glass Effect</h1>
+      <p class="hero-subtitle">
+        Explore the glassmorphism design trend with backdrop filters, transparency, and blur effects
+      </p>
+      <button class="glass-button">
+        Get Started
+        <span>→</span>
+      </button>
+    </div>
+    
+    <div class="visual-demo">
+      <div class="glass-demo-card glass">
+        <div class="demo-content">
+          <div class="demo-circle"></div>
+          <p>Glassmorphism</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .scroll-section {
+    min-width: 100vw;
+    height: 100vh;
+    scroll-snap-align: start;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    position: relative;
+  }
+  
+  .section-content {
+    max-width: 1280px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4rem;
+  }
+  
+  .content-left {
+    flex: 1;
+    max-width: 600px;
+  }
+  
+  .hero-title {
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 600;
+    margin: 0 0 1.5rem 0;
+    line-height: 1.1;
+    background: linear-gradient(to right, #ffffff, #e0e0e0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.5rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 2rem;
+    font-weight: 300;
+  }
+  
+  .visual-demo {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 500px;
+  }
+  
+  .glass-demo-card {
+    width: 300px;
+    height: 300px;
+    padding: 2rem;
+    border-radius: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  .demo-content {
+    text-align: center;
+  }
+  
+  .demo-circle {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(255,255,255,0.3), rgba(255,255,255,0.1));
+    margin: 0 auto 1rem;
+    box-shadow: inset 0 2px 8px rgba(255,255,255,0.3);
+  }
+  
+  .demo-content p {
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: white;
+  }
+  
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .section-content {
+      flex-direction: column;
+      text-align: center;
+    }
+    
+    .content-left {
+      max-width: 100%;
+    }
+    
+    .glass-demo-card {
+      width: 250px;
+      height: 250px;
+    }
+  }
+</style>

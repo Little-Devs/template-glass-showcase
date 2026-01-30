@@ -1,0 +1,348 @@
+---
+import '../styles/global.css';
+import '../styles/glassmorphism.css';
+import '../styles/horizontal-scroll.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Sidebar from '../components/Sidebar.astro';
+
+interface Props {
+  title?: string;
+  showHeader?: boolean;
+  showFooter?: boolean;
+}
+
+const { 
+  title = 'Glass Showcase - Horizontal Scrolling Experience',
+  showHeader = true,
+  showFooter = true
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Interactive glassmorphism showcase with horizontal scrolling navigation" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <title>{title}</title>
+</head>
+<body>
+  <!-- App Layer Structure -->
+  {showHeader && <Header />}
+  {showFooter && <Footer />}
+  <Sidebar />
+  
+  <slot />
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+    }
+    
+    .horizontal-scroll-container {
+      display: flex;
+      flex-direction: row;
+      overflow-x: scroll;
+      overflow-y: hidden;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      height: 100vh;
+      width: 100vw;
+      scrollbar-width: thin;
+      position: fixed;
+      top: 0;
+      left: 0;
+    }
+    
+    /* Scrollbar hidden - see horizontal-scroll.css */
+    .horizontal-scroll-container::-webkit-scrollbar {
+      display: none;
+    }
+    
+    /* Force horizontal layout with vertical overflow support */
+    :global(.scroll-section) {
+      min-width: 100vw !important;
+      width: 100vw !important;
+      min-height: 100vh !important;
+      height: auto !important;
+      max-height: 100vh !important;
+      flex-shrink: 0 !important;
+      scroll-snap-align: start !important;
+      overflow-y: auto !important;
+      overflow-x: hidden !important;
+    }
+    
+    /* Hide section scrollbars */
+    :global(.scroll-section)::-webkit-scrollbar {
+      display: none;
+    }
+    
+    /* Mobile: vertical scroll */
+    @media (max-width: 768px) {
+      .horizontal-scroll-container {
+        flex-direction: column;
+        overflow-x: hidden;
+        overflow-y: scroll;
+        scroll-snap-type: y mandatory;
+      }
+      
+      :global(.scroll-section) {
+        min-height: 100vh !important;
+        height: auto !important;
+        min-width: 100vw !important;
+        width: 100vw !important;
+      }
+    }
+  </style>
+  
+  <script>
+    // Wait for DOM to be ready
+    document.addEventListener('DOMContentLoaded', () => {
+      const container = document.querySelector('.horizontal-scroll-container');
+      if (!container) return;
+      
+      const sections = document.querySelectorAll('.scroll-section');
+      const navDots = document.querySelectorAll('.nav-dot');
+      
+      // Keyboard navigation for horizontal scroll
+      document.addEventListener('keydown', (e) => {
+        const currentScroll = container.scrollLeft;
+        const sectionWidth = window.innerWidth;
+        const currentIndex = Math.round(currentScroll / sectionWidth);
+        
+        if (e.key === 'ArrowRight' && currentIndex < sections.length - 1) {
+          e.preventDefault();
+          container.scrollTo({
+            left: (currentIndex + 1) * sectionWidth,
+            behavior: 'smooth'
+          });
+        } else if (e.key === 'ArrowLeft' && currentIndex > 0) {
+          e.preventDefault();
+          container.scrollTo({
+            left: (currentIndex - 1) * sectionWidth,
+            behavior: 'smooth'
+          });
+        }
+      });
+      
+      // Smart scroll: vertical within section, horizontal between sections
+      container.addEventListener('wheel', (e) => {
+        // Find the current section being viewed
+        const currentScroll = container.scrollLeft;
+        const sectionWidth = window.innerWidth;
+        const currentIndex = Math.round(currentScroll / sectionWidth);
+        const currentSection = sections[currentIndex];
+        
+        if (!currentSection) return;
+        
+        // Check if section has vertical overflow
+        const hasVerticalOverflow = currentSection.scrollHeight > currentSection.clientHeight;
+        
+        if (hasVerticalOverflow && Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+          // Section has overflow and user is scrolling vertically
+          const isAtTop = currentSection.scrollTop === 0;
+          const isAtBottom = currentSection.scrollTop + currentSection.clientHeight >= currentSection.scrollHeight - 1;
+          
+          // Allow vertical scroll within section
+          if ((e.deltaY > 0 && !isAtBottom) || (e.deltaY < 0 && !isAtTop)) {
+            // Let the section scroll vertically
+            return;
+          }
+          
+          // User is at top/bottom of section, allow horizontal navigation
+          e.preventDefault();
+          
+          if (e.deltaY > 0 && isAtBottom && currentIndex < sections.length - 1) {
+            // Scroll right to next section
+            container.scrollTo({
+              left: (currentIndex + 1) * sectionWidth,
+              behavior: 'smooth'
+            });
+          } else if (e.deltaY < 0 && isAtTop && currentIndex > 0) {
+            // Scroll left to previous section
+            container.scrollTo({
+              left: (currentIndex - 1) * sectionWidth,
+              behavior: 'smooth'
+            });
+          }
+        } else {
+          // No vertical overflow or horizontal scroll gesture
+          e.preventDefault();
+          const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+          
+          container.scrollBy({
+            left: delta,
+            behavior: 'auto'
+          });
+        }
+      }, { passive: false });
+      
+      // Touch swipe support (already works with native scroll but adding optimization)
+      let touchStartX = 0;
+      let touchEndX = 0;
+      
+      container.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+      }, { passive: true });
+      
+      container.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+      }, { passive: true });
+      
+      function handleSwipe() {
+        const swipeThreshold = 50; // minimum distance for a swipe
+        const diff = touchStartX - touchEndX;
+        
+        if (Math.abs(diff) > swipeThreshold) {
+          const currentScroll = container.scrollLeft;
+          const sectionWidth = window.innerWidth;
+          const currentIndex = Math.round(currentScroll / sectionWidth);
+          
+          if (diff > 0 && currentIndex < sections.length - 1) {
+            // Swipe left - go to next
+            container.scrollTo({
+              left: (currentIndex + 1) * sectionWidth,
+              behavior: 'smooth'
+            });
+          } else if (diff < 0 && currentIndex > 0) {
+            // Swipe right - go to previous
+            container.scrollTo({
+              left: (currentIndex - 1) * sectionWidth,
+              behavior: 'smooth'
+            });
+          }
+        }
+      }
+      
+      // Update active nav dot on horizontal scroll (if nav is visible)
+      if (navDots.length > 0) {
+        container.addEventListener('scroll', () => {
+          const currentScroll = container.scrollLeft;
+          const sectionWidth = window.innerWidth;
+          const currentIndex = Math.round(currentScroll / sectionWidth);
+          
+          navDots.forEach((dot, index) => {
+            if (index === currentIndex) {
+              dot.classList.add('active');
+            } else {
+              dot.classList.remove('active');
+            }
+          });
+        });
+      }
+      
+      // Log scroll position for debugging
+      container.addEventListener('scroll', () => {
+        const currentScroll = container.scrollLeft;
+        const maxScroll = container.scrollWidth - container.clientWidth;
+        const progress = (currentScroll / maxScroll * 100).toFixed(1);
+        console.log(`Scroll: ${currentScroll}px / ${maxScroll}px (${progress}%)`);
+      });
+      
+      // Autohide with edge hover detection
+      const header = document.getElementById('app-header');
+      const sidebar = document.getElementById('app-sidebar');
+      const footer = document.getElementById('app-footer');
+      const sidebarOverlay = document.getElementById('sidebar-overlay');
+      
+      const HOVER_ZONE = 50; // pixels from edge
+      const HOVER_DELAY = 100; // milliseconds before showing
+      
+      let headerTimer = null;
+      let sidebarTimer = null;
+      let footerTimer = null;
+      
+      // Track mouse position
+      document.addEventListener('mousemove', (e) => {
+        const { clientX, clientY } = e;
+        const windowWidth = window.innerWidth;
+        const windowHeight = window.innerHeight;
+        
+        // Top edge - Header (available on all sections via hover)
+        if (clientY < HOVER_ZONE) {
+          clearTimeout(headerTimer);
+          headerTimer = setTimeout(() => {
+            header?.classList.add('show');
+          }, HOVER_DELAY);
+        } else if (clientY > 100) {
+          clearTimeout(headerTimer);
+          header?.classList.remove('show');
+        }
+        
+        // Left edge - Sidebar
+        if (clientX < HOVER_ZONE) {
+          clearTimeout(sidebarTimer);
+          sidebarTimer = setTimeout(() => {
+            sidebar?.classList.add('show');
+            sidebarOverlay?.classList.add('visible');
+          }, HOVER_DELAY);
+        } else if (clientX > 370) { // sidebar width + buffer
+          clearTimeout(sidebarTimer);
+          if (!sidebar?.classList.contains('open')) {
+            sidebar?.classList.remove('show');
+            sidebarOverlay?.classList.remove('visible');
+          }
+        }
+        
+        // Bottom edge - Footer
+        if (clientY > windowHeight - HOVER_ZONE) {
+          clearTimeout(footerTimer);
+          footerTimer = setTimeout(() => {
+            footer?.classList.add('show');
+          }, HOVER_DELAY);
+        } else if (clientY < windowHeight - 250) { // footer height + buffer
+          clearTimeout(footerTimer);
+          footer?.classList.remove('show');
+        }
+      });
+      
+      // Sidebar manual toggle (menu button and close)
+      const menuToggle = document.getElementById('menu-toggle');
+      const sidebarClose = document.getElementById('sidebar-close');
+      
+      function openSidebar() {
+        sidebar?.classList.add('open', 'show');
+        sidebarOverlay?.classList.add('visible');
+        menuToggle?.classList.add('active');
+      }
+      
+      function closeSidebar() {
+        sidebar?.classList.remove('open', 'show');
+        sidebarOverlay?.classList.remove('visible');
+        menuToggle?.classList.remove('active');
+      }
+      
+      menuToggle?.addEventListener('click', () => {
+        if (sidebar?.classList.contains('open')) {
+          closeSidebar();
+        } else {
+          openSidebar();
+        }
+      });
+      
+      sidebarClose?.addEventListener('click', closeSidebar);
+      sidebarOverlay?.addEventListener('click', closeSidebar);
+      
+      // Close sidebar when clicking a link
+      document.querySelectorAll('.sidebar-link').forEach(link => {
+        link.addEventListener('click', closeSidebar);
+      });
+      
+      // Log initial state for debugging
+      console.log('App initialized:', {
+        containerWidth: container.scrollWidth,
+        viewportWidth: window.innerWidth,
+        sections: sections.length,
+        features: ['header overlay', 'sidebar', 'mouse wheel', 'keyboard', 'touch swipe']
+      });
+    });
+  </script>
+</body>
+</html>
