@@ -5,6 +5,9 @@
   "description": "Horizontal-scrolling glass effect showcase with 18 sections demonstrating glassmorphism techniques and best practices",
   "category": "landing-page",
   "subcategory": "showcase",
+  "repository": "https://github.com/Little-Devs/template-glass-showcase",
+  "demoUrl": "https://glass.jibbr.dev",
+  "previewImage": "",
   "techStack": {
     "framework": "Astro",
     "version": "5.0.0",
